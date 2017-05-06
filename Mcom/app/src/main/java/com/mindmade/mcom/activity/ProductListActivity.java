@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,7 +22,7 @@ import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.NetworkConnectionManager;
 import com.mindmade.mcom.utilclasses.PrefManager;
 import com.mindmade.mcom.utilclasses.api.AllApi;
-import com.mindmade.mcom.utilclasses.model.CategoryModel;
+
 import com.mindmade.mcom.utilclasses.model.ProductModel;
 import com.mindmade.mcom.utilclasses.network.ServiceGenerator;
 
@@ -44,7 +45,7 @@ public class ProductListActivity extends AppCompatActivity {
     NetworkConnectionManager connectionManager;
     AllApi apiInitialize;
     PrefManager sessionManger;
-   ProductsAdapter adapter;
+    ProductsAdapter adapter;
 
 
     public final int TYPE_LOAD = 1;
@@ -102,8 +103,8 @@ public class ProductListActivity extends AppCompatActivity {
         catProductRecyclerView.setLayoutManager(layoutManager);
         loadDataFromApi(0);
     }
-        // loadingView = LayoutInflater.from(getActivity()).inflate(R.layout.bottom_loading, latestRecyclerView, false);
-       // adapter = new ProductsAdapter(this, data);
+//         loadingView = LayoutInflater.from(getActivity()).inflate(R.layout.bottom_loading, latestRecyclerView, false);
+//        adapter = new ProductsAdapter(this, data);
 
 
 //
@@ -157,7 +158,7 @@ public class ProductListActivity extends AppCompatActivity {
 
     private void loadDataFromApi(int index) {
         if (connectionManager.isConnectingToInternet()) {
-            Call<ProductModel> Productscall = apiInitialize.getProductsListData();
+            Call<ProductModel> Productscall = apiInitialize.getProductsListData(Const.PRODUCT_LIMIT_VALUE);
             Log.w("Success", "URL::: " + Productscall.request().url().toString());
 
             Productscall.enqueue(new Callback<ProductModel>() {

@@ -26,12 +26,14 @@ public class Const {
   public static final String PRODUCT_POSITON_ID = "position";
   public static final String CREATED_AT = "created_at";
   public static final String UPDATED_AT = "updated_at";
-    public static final String PRODUCT_CAT_ID_KEY = "category_id";
-    public static final String PRODUCT_IMAGE_KEY = "image";
-    public static final String PRODUCT_DESC_KEY = "description";
+    public static final String PRODUCT_VARAINTS = "variants";
+    public static final String PRODUCT_PRICE = "price";
+    public static final String PRODUCT_VARAINT_ID = "description";
     public static final String PRODUCT_PRICE_KEY = "price";
     public static final String PRODUCT_OFF_PRICE_KEY = "offer_price";
     public static final String TYPE_KEY = "type";
+  public static final String PRODUCT_LIMIT_VALUE="4";
+
    
 
     public static final String APP_NAME = "MCom";

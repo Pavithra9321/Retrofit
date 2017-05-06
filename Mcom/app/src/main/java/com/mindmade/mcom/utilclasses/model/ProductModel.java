@@ -49,7 +49,7 @@ public class ProductModel {
         float id;
 
         @SerializedName(Const.IMAGE_OBJECT_KEY)
-        private Map<Object, Image> result;
+        public Image image;
 
         public String getName() {
             return name;
@@ -66,33 +66,62 @@ public class ProductModel {
         public void setId(Float id) {
             this.id = id;
         }
-//        public Map<String, String> getResult() {
-//            return result;
-//        }
-//
-//        public void setResult(Map<String, String> result) {
-//            this.result = result;
-//        }
+
+    @SerializedName(Const.PRODUCT_VARAINTS)
+
+    private ArrayList<Variants> varaiants = new ArrayList<>();
 
 
-        public Map<Object, Image> getResult() {
-            return result;
+
+    /**
+     * @return The contacts
+     */
+    public ArrayList<Variants> getVaraiants() {
+        return varaiants;
+    }
+
+
+    public void setVaraiants(ArrayList<Variants> varaiants) {
+        this.varaiants = varaiants;
+    }
+
+
+    public Image getImage(){
+        return image;
+    }
+
+    public void setImage(Image image){
+        this.image=image;
+    }
+
+
+
+    public class Variants{
+        @SerializedName(Const.PRODUCT_PRICE)
+        String price;
+
+
+        public String getPrice() {
+            return price;
         }
 
-        public void setResult(Map<Object, Image> result) {
-            this.result = result;
+        public void setPrice(String price) {
+            this.price = price;
         }
+    }
+
+
 
         public class Image {
 
             @SerializedName(Const.PRODUCT_ID_KEY)
-            float product_id;
+            Long product_id;
 
             @SerializedName(Const.PRODUCT_IMAGE_ID)
-            float img_id;
+            Long img_id;
 
             @SerializedName(Const.PRODUCT_POSITON_ID)
-            float position_id;
+            Long position_id;
 
             @SerializedName(Const.CREATED_AT)
             String create;
@@ -104,19 +133,19 @@ public class ProductModel {
             String src;
 
 
-            public float getProduct_id() {
+            public Long getProduct_id() {
                 return product_id;
             }
 
-            public void setProduct_id(float product_id) {
+            public void setProduct_id(Long product_id) {
                 this.product_id = product_id;
             }
 
-            public float getImg_id() {
+            public Long getImg_id() {
                 return img_id;
             }
 
-            public void setImg_id(float img_id) {
+            public void setImg_id(Long img_id) {
                 this.img_id = img_id;
             }
 
@@ -124,7 +153,7 @@ public class ProductModel {
                 return position_id;
             }
 
-            public void setPosition_id(float position_id) {
+            public void setPosition_id(Long position_id) {
                 this.position_id = position_id;
             }
 
