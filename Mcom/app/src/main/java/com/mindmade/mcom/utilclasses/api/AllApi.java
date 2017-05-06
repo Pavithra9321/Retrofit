@@ -17,6 +17,7 @@ public interface AllApi {
     @GET(Const.CATEGORY_URL)
     Call<CategoryModel> getCategoriesData();
 
+    @Headers("Content-Type: application/json")
     @GET(Const.PRODUCT_URL)
-    Call<Products> getProductsList();
+    Call<Products> getProductsListData();
 }

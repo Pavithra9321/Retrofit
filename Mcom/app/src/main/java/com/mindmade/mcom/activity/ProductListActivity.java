@@ -23,10 +23,13 @@ import com.google.gson.Gson;
 import com.mindmade.mcom.R;
 import com.mindmade.mcom.adapterclasses.ProductsAdapter;
 import com.mindmade.mcom.utilclasses.AppController;
+import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.NetworkConnectionManager;
 import com.mindmade.mcom.utilclasses.PrefManager;
 import com.mindmade.mcom.utilclasses.api.AllApi;
+import com.mindmade.mcom.utilclasses.model.CategoryModel;
 import com.mindmade.mcom.utilclasses.model.Products;
+import com.mindmade.mcom.utilclasses.network.ServiceGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +67,10 @@ public class ProductListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
+
+        connectionManager = new NetworkConnectionManager(this);
+        sessionManger = new PrefManager(this);
+        apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE,Const.PASSWORD_VALUE);
         toolbar = (Toolbar) findViewById(R.id.category_product_toolbar);
 
         setSupportActionBar(toolbar);
@@ -157,12 +164,23 @@ public class ProductListActivity extends AppCompatActivity {
 
     private void loadDataFromApi(int index) {
         if (connectionManager.isConnectingToInternet()) {
-            Call<Products> latestProducts = apiInitialize.getProductsList();
-            Log.w("Success", "URL::: " + latestProducts.request().url().toString());
-              latestProducts.enqueue(new Callback<Products>() {
-                @Override
-                public void onResponse(Call<Products> call, Response<Products> response) {
-                    Log.w("Success", "RRRRR" + new Gson().toJson(response.body()));
+            Call<Products> Productscall = apiInitialize.getProductsListData();
+            Log.w("Success", "URL::: " + Productscall.request().url().toString());
+
+            Productscall.enqueue(new Callback<Products>() {
+                                       @Override
+                                       public void onResponse(Call<Products> call, Response<Products> response) {
+                                           Log.w("Success", "Response::: " + new Gson().toJson(response.body()));
+                                           Log.w("Success", "Response::: " + new Gson().toJson(response.code()));
+                                           Log.w("Success", "Response::: " + new Gson().toJson(response.message()));
+                                           Log.w("Success", "Response::: " + new Gson().toJson(response.errorBody()));
+                                           Log.w("Success", "Response::: " + new Gson().toJson(response.headers()));
+
+
+//              latestProducts.enqueue(new Callback<Products>() {
+//                @Override
+//                public void onResponse(Call<Products> call, Response<Products> response) {
+//                    Log.w("Success", "RRRRR" + new Gson().toJson(response.body()));
                     catProductRefreshLayout.setRefreshing(false);
                     try {
 //                        if (response.isSuccessful()) {
