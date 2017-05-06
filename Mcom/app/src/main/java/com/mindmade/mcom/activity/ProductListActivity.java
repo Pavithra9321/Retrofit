@@ -1,14 +1,9 @@
 package com.mindmade.mcom.activity;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,22 +12,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mindmade.mcom.R;
+
 import com.mindmade.mcom.adapterclasses.ProductsAdapter;
-import com.mindmade.mcom.utilclasses.AppController;
 import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.NetworkConnectionManager;
 import com.mindmade.mcom.utilclasses.PrefManager;
 import com.mindmade.mcom.utilclasses.api.AllApi;
 import com.mindmade.mcom.utilclasses.model.CategoryModel;
-import com.mindmade.mcom.utilclasses.model.Products;
+import com.mindmade.mcom.utilclasses.model.ProductModel;
 import com.mindmade.mcom.utilclasses.network.ServiceGenerator;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,11 +40,11 @@ public class ProductListActivity extends AppCompatActivity {
     ProgressBar catProductProgressBar, leteastLoadmoreProgressbar;
     ImageView catProductNodataImageView;
     SwipeRefreshLayout catProductRefreshLayout;
-    ArrayList<Products> data;
+    ArrayList<ProductModel.Products> data;
     NetworkConnectionManager connectionManager;
     AllApi apiInitialize;
     PrefManager sessionManger;
-    ProductsAdapter adapter;
+   ProductsAdapter adapter;
 
 
     public final int TYPE_LOAD = 1;
@@ -91,9 +84,9 @@ public class ProductListActivity extends AppCompatActivity {
             }
         });
 
-        data = new ArrayList<Products>();
-        connectionManager = new NetworkConnectionManager(this);
-        sessionManger = new PrefManager(this);
+       data = new ArrayList<>();
+//        connectionManager = new NetworkConnectionManager(this);
+//        sessionManger = new PrefManager(this);
 
 
         // sortbyLayout = (LinearLayout) findViewById(R.id.category_products_sortby_layout);
@@ -164,44 +157,35 @@ public class ProductListActivity extends AppCompatActivity {
 
     private void loadDataFromApi(int index) {
         if (connectionManager.isConnectingToInternet()) {
-            Call<Products> Productscall = apiInitialize.getProductsListData();
+            Call<ProductModel> Productscall = apiInitialize.getProductsListData();
             Log.w("Success", "URL::: " + Productscall.request().url().toString());
 
-            Productscall.enqueue(new Callback<Products>() {
+            Productscall.enqueue(new Callback<ProductModel>() {
                                        @Override
-                                       public void onResponse(Call<Products> call, Response<Products> response) {
+                                       public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
                                            Log.w("Success", "Response::: " + new Gson().toJson(response.body()));
                                            Log.w("Success", "Response::: " + new Gson().toJson(response.code()));
                                            Log.w("Success", "Response::: " + new Gson().toJson(response.message()));
                                            Log.w("Success", "Response::: " + new Gson().toJson(response.errorBody()));
                                            Log.w("Success", "Response::: " + new Gson().toJson(response.headers()));
 
-
-//              latestProducts.enqueue(new Callback<Products>() {
-//                @Override
-//                public void onResponse(Call<Products> call, Response<Products> response) {
-//                    Log.w("Success", "RRRRR" + new Gson().toJson(response.body()));
                     catProductRefreshLayout.setRefreshing(false);
                     try {
-//                        if (response.isSuccessful()) {
-//
-//                            ProductSubCategory productsModel = response.body();
-//                            if (productsModel.getStatus() == 1) {
-//                                catProductProgressBar.setVisibility(View.GONE);
-//                                catProductRecyclerView.setVisibility(View.VISIBLE);
-//                                if (productsModel.getProductsData().size() > 0) {
-//                                    data.addAll(productsModel.getProductsData());
-//                                    adapter.notifyDataChanged();
-//                                } else {
-//
-//                                }
-//
-//                            } else {
-//                                Log.e("Error", "Resposne Error");
-//                            }
-//                        } else {
-//                            Log.e("Error", "Failure Response");
-//                        }
+                        if (response.isSuccessful()) {
+
+                            ProductModel productModel = response.body();
+                            catProductProgressBar.setVisibility(View.GONE);
+                            catProductRecyclerView.setVisibility(View.VISIBLE);
+                              data.addAll(productModel.getProduct());
+                          //  adapter.notifyDataChanged();
+
+                            ProductsAdapter adapter = new ProductsAdapter(ProductListActivity.this,data);
+                            Log.w("Suuccess","asxfdf::: "+data.size());
+                            catProductRecyclerView.setAdapter(adapter);
+                        }
+                        else {
+                            Log.e("Error", "Failure Response");
+                        }
                     } catch (Exception e) {
                         Log.e("Exception", "" + e);
                     }
@@ -209,7 +193,7 @@ public class ProductListActivity extends AppCompatActivity {
 
 
                   @Override
-                public void onFailure(Call<Products> call, Throwable t) {
+                public void onFailure(Call<ProductModel> call, Throwable t) {
                     Log.e("Failure", " Response Error " + t.getMessage());
                 }
             });
@@ -220,7 +204,7 @@ public class ProductListActivity extends AppCompatActivity {
 
 //    private void loadMoreDataFromApi(int index) {
 //        if (connectionManager.isConnectingToInternet()) {
-//            data.add(new Products("load"));
+//            data.add(new ProductModel("load"));
 //            adapter.notifyItemInserted(data.size() - 1);
 //            Call<ProductSubCategory> latestProducts = apiInitialize.getCategoryProducts(categoryID, index, Const.LIMIT_VALUE, sort, filters);
 //            Log.w("Success", "URL::: " + latestProducts.request().url().toString());
@@ -238,7 +222,7 @@ public class ProductListActivity extends AppCompatActivity {
 //                                    data.addAll(productsModel.getProductsData());
 //                                } else {
 //                                    adapter.setMoreDataAvailable(false);
-//                                   /* data.add(new Products("nodata"));
+//                                   /* data.add(new ProductModel("nodata"));
 //                                    bottom_sheet_adapter.notifyItemInserted(data.size() - 1);
 //                                    new Handler().postDelayed(new Runnable() {
 //                                        @Override
@@ -254,7 +238,7 @@ public class ProductListActivity extends AppCompatActivity {
 //
 //                            } else {
 //                                adapter.setMoreDataAvailable(false);
-//                               /* data.add(new Products("nodata"));
+//                               /* data.add(new ProductModel("nodata"));
 //                                bottom_sheet_adapter.notifyItemInserted(data.size() - 1);
 //                                new Handler().postDelayed(new Runnable() {
 //                                    @Override

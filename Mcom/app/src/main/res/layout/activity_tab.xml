@@ -32,7 +32,7 @@
                 android:animateLayoutChanges="true"
                 android:elevation="2dp"
                 android:minHeight="?attr/actionBarSize"
-                app:tabBackground="@color/colorPrimary"
+                app:tabBackground="@drawable/tab_selected"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@android:color/transparent"
                 app:tabIndicatorHeight="0dp"
