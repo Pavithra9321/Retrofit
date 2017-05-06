@@ -2,4 +2,5 @@
     <string name="app_name">Mcom</string>
     <!--Splash Activity-->
     <string name="copyrightsStr">Copyright © 2017.MindMadetech.com</string>
+    <string name="no_data_str">No more data found</string>
 </resources>

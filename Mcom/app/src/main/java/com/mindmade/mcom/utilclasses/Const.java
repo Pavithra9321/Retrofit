@@ -22,7 +22,10 @@ public class Const {
     public  static final String PRODUCT_URL="products.json";
     public static final String PRODUCT_ARRAY_KEY = "products";
     public static final String PRODUCT_ID_KEY = "id";
-    public static final String PRODUCT_NAME_KEY = "name";
+    public static final String PRODUCT_IMAGE_ID = "product_id";
+  public static final String PRODUCT_POSITON_ID = "position";
+  public static final String CREATED_AT = "created_at";
+  public static final String UPDATED_AT = "updated_at";
     public static final String PRODUCT_CAT_ID_KEY = "category_id";
     public static final String PRODUCT_IMAGE_KEY = "image";
     public static final String PRODUCT_DESC_KEY = "description";

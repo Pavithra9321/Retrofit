@@ -3,6 +3,7 @@ package com.mindmade.mcom.utilclasses.network;
 import android.text.TextUtils;
 
 import com.mindmade.mcom.utilclasses.Const;
+import com.mindmade.mcom.utilclasses.ToStringConverterFactory;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +52,7 @@ public class ServiceGenerator {
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(API_BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create());
+                    .addConverterFactory(new ToStringConverterFactory());
 
     private static Retrofit retrofit = builder.build();
 
