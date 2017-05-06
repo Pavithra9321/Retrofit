@@ -15,4 +15,14 @@ public class Const {
     public static final String IMAGE_OBJECT_KEY="image";
     public static final String SRC_KEY="src";
 
+
+   
+
+    public static final String APP_NAME = "MCom";
+    /*Tab Activity titles*/
+    public static final String CATEGORIES = "CATEGORIES";
+    public static final String SEARCH = "SEARCH";
+    public static final String CART = "CART";
+    public static final String ABOUT_US = "ABOUT US";
+
 }
