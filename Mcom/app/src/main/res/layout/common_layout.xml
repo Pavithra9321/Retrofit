@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:layout_margin="2dp"
             android:clipToPadding="true"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar

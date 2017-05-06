@@ -49,4 +49,22 @@ public class Const {
     public static final String FIELDS_KEY = "fields";
     public static final String FIELDS_VALUE = "id,title";
 
+    /*Cart Activity*/
+    // Database Name
+    public static final String DATABASE_NAME = "mComDB";
+    // Contacts table name
+    public static final String TABLE_CART = "cart";
+    // Contacts Table Columns names
+    public static final String ID_COLUMN = "id";
+    public static final String NAME_COLUMN = "name";
+    public static final String IMAGE_COLUMN = "image";
+    public static final String QTY_COLUMN = "qty";
+    public static final String PRICE_COLUMN = "price";
+
+    public static final String CART_TOTAL_KEY="Total: ";
+    public static final String CART_ITEMS_KEY="Items: ";
+
+
+    public static final String[] SORTBY_ARRAY = {"Populartity", "New", "Price : Low - High", "Price : High - Low"};
+
 }

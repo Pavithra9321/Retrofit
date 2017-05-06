@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mindmade.mcom.R;
+import com.mindmade.mcom.utilclasses.model.CartProduct;
 
 import java.util.List;
 
@@ -20,11 +21,11 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter {
     Context mContext;
-    // List<String> data;
+     List<CartProduct> data;
 
-    public CartAdapter(Context context) {
+    public CartAdapter(Context context,List<CartProduct> passData) {
         mContext = context;
-        //   data = passData;
+        data = passData;
     }
 
     @Override
@@ -40,7 +41,7 @@ public class CartAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 5;
+        return data.size();
     }
 
     private class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
