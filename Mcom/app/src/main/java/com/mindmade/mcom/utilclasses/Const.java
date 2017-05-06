@@ -20,7 +20,7 @@ public class Const {
 
     /*Product Adapter Json respons Keywords*/
     public  static final String PRODUCT_URL="products.json";
-    public static final String PRODUCT_ARRAY_KEY = "Products";
+    public static final String PRODUCT_ARRAY_KEY = "products";
     public static final String PRODUCT_ID_KEY = "id";
     public static final String PRODUCT_NAME_KEY = "name";
     public static final String PRODUCT_CAT_ID_KEY = "category_id";
@@ -37,5 +37,12 @@ public class Const {
     public static final String SEARCH = "SEARCH";
     public static final String CART = "CART";
     public static final String ABOUT_US = "ABOUT US";
+
+
+  /*Search Activity*/
+  public static final String LIMIT_KEY="limit";
+  public static final String LIMIT_VALUE="10";
+  public static final String FIELDS_KEY="fields";
+  public static final String FIELDS_VALUE="id,title";
 
 }
