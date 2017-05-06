@@ -3,7 +3,8 @@ package com.mindmade.mcom.utilclasses.api;
 import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.model.CategoryModel;
 import com.mindmade.mcom.utilclasses.model.ProductModel;
-import com.mindmade.mcom.utilclasses.model.Products;
+import com.mindmade.mcom.utilclasses.model.SearchModel;
+import com.mindmade.mcom.utilclasses.model.Products
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -23,5 +24,5 @@ public interface AllApi {
     Call<ProductModel> getProductsListData(@Query(Const.LIMIT_KEY) String limit);
 
     @GET(Const.PRODUCT_URL)
-    Call<Products> getSearchProducts(@Query(Const.TITLE_KEY) String title, @Query(Const.LIMIT_KEY) String limit, @Query(Const.FIELDS_KEY) String filelds);
+    Call<SearchModel> getSearchProducts(@Query(Const.TITLE_KEY) String title, @Query(Const.LIMIT_KEY) String limit, @Query(Const.FIELDS_KEY) String filelds);
 }

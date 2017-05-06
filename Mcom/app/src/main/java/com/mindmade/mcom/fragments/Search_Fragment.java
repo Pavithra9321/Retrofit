@@ -29,6 +29,7 @@ import com.mindmade.mcom.utilclasses.NetworkConnectionManager;
 import com.mindmade.mcom.utilclasses.PrefManager;
 import com.mindmade.mcom.utilclasses.api.AllApi;
 import com.mindmade.mcom.utilclasses.model.Products;
+import com.mindmade.mcom.utilclasses.model.SearchModel;
 import com.mindmade.mcom.utilclasses.network.ServiceGenerator;
 import com.mindmade.mcom.utilclasses.searchview.AnimationUtil;
 import com.mindmade.mcom.utilclasses.searchview.MaterialSearchView;
@@ -190,21 +191,21 @@ public class Search_Fragment extends Fragment {
     private void searchDataFromApi(String title) {
         if (connectionManager.isConnectingToInternet()) {
             if (!title.isEmpty()) {
-                Call<Products> callSearchApi = apiInitialize.getSearchProducts(title, Const.LIMIT_VALUE, Const.FIELDS_VALUE);
+                Call<SearchModel> callSearchApi = apiInitialize.getSearchProducts(title, Const.LIMIT_VALUE, Const.FIELDS_VALUE);
                 Log.w("Success", "URL::: " + callSearchApi.request().url().toString());
-                callSearchApi.enqueue(new Callback<Products>() {
+                callSearchApi.enqueue(new Callback<SearchModel>() {
                     @Override
-                    public void onResponse(Call<Products> call, Response<Products> response) {
+                    public void onResponse(Call<SearchModel> call, Response<SearchModel> response) {
                         Log.w("Success", "Response::: " + new Gson().toJson(response.body()));
                         try {
                             if (response.isSuccessful()) {
 
-                                Products searchProducts = response.body();
-                                if (searchProducts.getProductList().size() > 0) {
+                                SearchModel searchProducts = response.body();
+                                if (searchProducts.getSearchList().size() > 0) {
                                     mSearchProgressBar.setVisibility(GONE);
                                     mSuggestionsListView.setVisibility(VISIBLE);
-                                    List<Products.product> data = new ArrayList<>();
-                                    data.addAll(searchProducts.getProductList());
+                                    List<SearchModel.Search> data = new ArrayList<>();
+                                    data.addAll(searchProducts.getSearchList());
                                     Log.d("Success", "Data Size::: " + data.size());
                                     if (adapter != null) {
                                         adapter.clearAdapter();
@@ -222,7 +223,7 @@ public class Search_Fragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<Products> call, Throwable t) {
+                    public void onFailure(Call<SearchModel> call, Throwable t) {
                         Log.e("onFailure ", "" + t);
                     }
                 });
