@@ -14,7 +14,6 @@ import java.util.Map;
 public class CategoryModel {
 
     @SerializedName(Const.CATEGORY_ARRAY_KEY)
-    @Expose
     List<Category> categoryList;
 
     public List<Category> getCategoryList() {
@@ -27,14 +26,11 @@ public class CategoryModel {
 
     public class Category {
         @SerializedName(Const.TITLE_KEY)
-        @Expose
         String name;
         @SerializedName(Const.ID_KEY)
-        @Expose
         int id;
-        @SerializedName(Const.IMAGE_OBJECT_KEY)
-        @Expose
-        private Map<String, Image> result;
+        /*@SerializedName(Const.IMAGE_OBJECT_KEY)
+        private Map<String, Image> result;*/
 
         public String getName() {
             return name;
@@ -52,18 +48,17 @@ public class CategoryModel {
             this.id = id;
         }
 
-        public Map<String, Image> getResult() {
+       /* public Map<String, Image> getResult() {
             return result;
         }
 
         public void setResult(Map<String, Image> result) {
             this.result = result;
-        }
+        }*/
     }
 
-    public class Image {
+    /*public class Image {
         @SerializedName(Const.SRC_KEY)
-        @Expose
         String src;
 
 
@@ -74,5 +69,5 @@ public class CategoryModel {
         public void setSrc(String src) {
             this.src = src;
         }
-    }
+    }*/
 }

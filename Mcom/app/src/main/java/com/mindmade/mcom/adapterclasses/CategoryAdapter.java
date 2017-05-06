@@ -41,7 +41,7 @@ public class CategoryAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof CategoryViewHolder) {
-            Log.w("Success", "Data::: " + data.get(position).getCategoryList().get(position).getResult());
+           // Log.w("Success", "Data::: " + data.get(position).getCategoryList().get(position).getResult());
         }
     }
 

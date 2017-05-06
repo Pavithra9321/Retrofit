@@ -6,6 +6,9 @@ package com.mindmade.mcom.utilclasses;
 public class Const {
     //Common Strings
     public static final String LIVE_URL = "https://rajaprasanna.myshopify.com/admin/";
+  //  public static final String LIVE_URL = "https://rajaprasanna.myshopify.com/admin/";
+    public static final String API_VALUE="c6afdca552a55bf647550fd5b1b1a15e";
+    public static final String PASSWORD_VALUE="b9a0e3f4fbca6ce53dd3e6a761ed556a";
 
     /*Category Activity*/
     public static final String CATEGORY_URL="custom_collections.json";
@@ -15,7 +18,17 @@ public class Const {
     public static final String IMAGE_OBJECT_KEY="image";
     public static final String SRC_KEY="src";
 
-
+    /*Product Adapter Json respons Keywords*/
+    public  static final String PRODUCT_URL="products.json";
+    public static final String PRODUCT_ARRAY_KEY = "Products";
+    public static final String PRODUCT_ID_KEY = "id";
+    public static final String PRODUCT_NAME_KEY = "name";
+    public static final String PRODUCT_CAT_ID_KEY = "category_id";
+    public static final String PRODUCT_IMAGE_KEY = "image";
+    public static final String PRODUCT_DESC_KEY = "description";
+    public static final String PRODUCT_PRICE_KEY = "price";
+    public static final String PRODUCT_OFF_PRICE_KEY = "offer_price";
+    public static final String TYPE_KEY = "type";
    
 
     public static final String APP_NAME = "MCom";
