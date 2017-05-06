@@ -52,21 +52,23 @@ public class ProductsAdapter  extends RecyclerView.Adapter {
           //  Log.w("Success", "Data::: " + data.get(position).getResult().get("src"));
            /* Log.w("Success", "Data::: " + data.get(position).getName());
             Log.w("Success", "Data::: " + data.get(position).getId());
-            ((ProductsAdapter.ProductViewHolder) holder).productNameTV.setText(data.get(position).getName());*/
+            ((ProductsAdapter.ProductViewHolder) holder).productNameTV.setText(data.get(position).getName());
+         ((ProductsAdapter.ProductViewHolder)holder).productOfferPriceTV.setText(data.get(position).getVaraiants().get(0).getPrice());
 
-//            Glide.with(mContext).load(data.get(position).getResult().get("src")).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
-//                @Override
-//                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-//                    ((CategoryAdapter.CategoryViewHolder) holder).categoryAdapterProgressBar.setVisibility(View.GONE);
-//                    return false;
-//                }
-//
-//                @Override
-//                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-//                    ((CategoryAdapter.CategoryViewHolder) holder).categoryAdapterProgressBar.setVisibility(View.GONE);
-//                    return false;
-//                }
-//            }).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(((CategoryAdapter.CategoryViewHolder) holder).categoryAdapterImageView);
+            Glide.with(mContext).load(data.get(position).getImage().getSrc()).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                ((ProductsAdapter.ProductViewHolder) holder).productAdapterProgressBar.setVisibility(View.GONE);
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                ((ProductsAdapter.ProductViewHolder) holder).productAdapterProgressBar.setVisibility(View.GONE);
+                return false;
+            }
+        }).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(((ProductsAdapter.ProductViewHolder) holder).productImageview);
+
 //
 //            ((CategoryAdapter.CategoryViewHolder) holder).categoryadapterTextView.setText(data.get(position).getName());
         }
@@ -81,6 +83,8 @@ public class ProductsAdapter  extends RecyclerView.Adapter {
         ImageView productImageview;
         TextView productNameTV, productOfferPriceTV, productActulPriceTV;
         LinearLayout bottomLayout;
+        ProgressBar productAdapterProgressBar;
+
 
         public ProductViewHolder(View itemView) {
             super(itemView);
@@ -90,7 +94,7 @@ public class ProductsAdapter  extends RecyclerView.Adapter {
             productOfferPriceTV = (TextView) itemView.findViewById(R.id.product_adapter_offer_price_TV);
             productActulPriceTV = (TextView) itemView.findViewById(R.id.product_adapter_actual_price_TV);
             bottomLayout = (LinearLayout) itemView.findViewById(R.id.product_adapter_bottom_layout);
-
+            productAdapterProgressBar = (ProgressBar) itemView.findViewById(R.id.product_progressbar);
           //  ProductsAdapterImageView.setOnClickListener(this);
         }
 

@@ -31,7 +31,7 @@ public class About_US_Fragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View aboutus = inflater.inflate(R.layout.about__us__fragment, container, false);
 
@@ -96,16 +96,18 @@ public class About_US_Fragment extends Fragment {
         linkedin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent prod=new Intent(getActivity(),ProductListActivity.class);
+                startActivity(prod);
 
-                try {
-                    String link="https://www.linkedin.com/company-beta/3146241/?pathWildcard=3146241";
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                    startActivity(intent);
-                    Log.d("success","link"+intent);
-
-                }catch (Exception e){
-                    Toast.makeText(getActivity(),"Sorry now could not connect",Toast.LENGTH_LONG).show();
-                }
+//                try {
+//                    String link="https://www.linkedin.com/company-beta/3146241/?pathWildcard=3146241";
+//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+//                    startActivity(intent);
+//                    Log.d("success","link"+intent);
+//
+//                }catch (Exception e){
+//                    Toast.makeText(getActivity(),"Sorry now could not connect",Toast.LENGTH_LONG).show();
+//                }
             }
         });
 
