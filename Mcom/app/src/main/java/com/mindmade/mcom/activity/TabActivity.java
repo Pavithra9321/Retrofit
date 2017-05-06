@@ -38,8 +38,8 @@ public class TabActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tab_toolbar);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbarTitleTV = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbarTitleTV.setText(getString(R.string.app_name));

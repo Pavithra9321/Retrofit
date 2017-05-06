@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mindmade.mcom">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <supports-screens
@@ -12,8 +11,6 @@
         android:resizeable="true"
         android:smallScreens="true"
         android:xlargeScreens="true" />
-
-
 
     <application
         android:name=".utilclasses.AppController"
@@ -29,6 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.ProductListActivity"></activity>
+        <activity android:name=".activity.TabActivity"></activity>
     </application>
 
 </manifest>
