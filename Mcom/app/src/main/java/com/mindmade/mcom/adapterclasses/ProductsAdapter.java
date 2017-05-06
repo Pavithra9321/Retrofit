@@ -50,7 +50,7 @@ public class ProductsAdapter  extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ProductsAdapter.ProductViewHolder) {
           //  Log.w("Success", "Data::: " + data.get(position).getResult().get("src"));
-           /* Log.w("Success", "Data::: " + data.get(position).getName());
+            Log.w("Success", "Data::: " + data.get(position).getName());
             Log.w("Success", "Data::: " + data.get(position).getId());
             ((ProductsAdapter.ProductViewHolder) holder).productNameTV.setText(data.get(position).getName());
          ((ProductsAdapter.ProductViewHolder)holder).productOfferPriceTV.setText(data.get(position).getVaraiants().get(0).getPrice());
@@ -102,10 +102,10 @@ public class ProductsAdapter  extends RecyclerView.Adapter {
         @Override
         public void onClick(View v) {
 //            if (v == ) {
-//              /*  Intent nextIntent = new Intent(mContext, CategoryActivity.class);
+//                Intent nextIntent = new Intent(mContext, CategoryActivity.class);
 //                nextIntent.putExtra(Const.NAME_INTENT_KEY, data.get(getAdapterPosition() - 1).getName());
 //                nextIntent.putExtra(Const.ID_INTENT_KEY, data.get(getAdapterPosition() - 1).getId());
-//                mContext.startActivity(nextIntent);*/
+//                mContext.startActivity(nextIntent);
 //            }
         }
     }

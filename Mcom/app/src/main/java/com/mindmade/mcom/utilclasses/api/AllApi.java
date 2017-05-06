@@ -4,7 +4,7 @@ import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.model.CategoryModel;
 import com.mindmade.mcom.utilclasses.model.ProductModel;
 import com.mindmade.mcom.utilclasses.model.SearchModel;
-import com.mindmade.mcom.utilclasses.model.Products
+import com.mindmade.mcom.utilclasses.model.Products;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -10,7 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.mindmade.mcom.R;
+import com.mindmade.mcom.utilclasses.CartSQLiteHelper;
 import com.mindmade.mcom.utilclasses.model.CartProduct;
 
 import java.util.List;
@@ -21,11 +27,13 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter {
     Context mContext;
-     List<CartProduct> data;
+    List<CartProduct> data;
+    CartSQLiteHelper cartSQLiteHelper;
 
-    public CartAdapter(Context context,List<CartProduct> passData) {
+    public CartAdapter(Context context, List<CartProduct> passData) {
         mContext = context;
         data = passData;
+        cartSQLiteHelper = new CartSQLiteHelper(mContext);
     }
 
     @Override
@@ -36,7 +44,22 @@ public class CartAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof CartViewHolder) {
+            ((CartViewHolder) holder).cartProductName.setText(data.get(position).getName());
+            ((CartViewHolder) holder).cartProductPrice.setText(data.get(position).getPrice());
+            ((CartViewHolder) holder).cartProductQuantity.setText(data.get(position).getQty());
+            Glide.with(mContext).load(data.get(position).getImg_url()).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
+                @Override
+                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    return false;
+                }
 
+                @Override
+                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    return false;
+                }
+            }).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(((CartViewHolder) holder).cartProductImageView);
+        }
     }
 
     @Override
@@ -69,11 +92,17 @@ public class CartAdapter extends RecyclerView.Adapter {
         @Override
         public void onClick(View v) {
             if (v == cartDeleteBtn) {
-                Toast.makeText(mContext, "Clicked Delete " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(mContext, "Clicked Delete " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                cartSQLiteHelper.deleteCart(data.get(getAdapterPosition()));
+                data.remove(getAdapterPosition());
             } else if (v == cartAddBtn) {
-                Toast.makeText(mContext, "Clicked Add " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mContext, "Clicked Add " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                data.get(getAdapterPosition()).setQty(Integer.parseInt(cartProductQuantity.getText().toString().trim()) + 1);
+                cartSQLiteHelper.updateCart(data.get(getAdapterPosition()));
             } else if (v == cartLessBtn) {
-                Toast.makeText(mContext, "Clicked Less " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mContext, "Clicked Less " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                data.get(getAdapterPosition()).setQty(Integer.parseInt(cartProductQuantity.getText().toString().trim()) - 1);
+                cartSQLiteHelper.updateCart(data.get(getAdapterPosition()));
             }
         }
     }
