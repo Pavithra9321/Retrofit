@@ -39,7 +39,9 @@
         android:id="@+id/cart_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/cart_amount_layout" />
+        android:layout_below="@+id/cart_amount_layout"
+        android:layout_marginTop="3dp"
+        android:layout_above="@+id/cart_checkout_TV"/>
 
     <TextView
         android:id="@+id/cart_checkout_TV"
