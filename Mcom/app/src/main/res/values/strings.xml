@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Mcom</string>
+    <string name="search_hint">Search&#8230;</string>
+    <string name="hint_prompt">Speak an item name or number</string>
     <!--Splash Activity-->
     <string name="copyrightsStr">Copyright © 2017.MindMadetech.com</string>
 </resources>

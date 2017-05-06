@@ -94,7 +94,7 @@ public class ProductListActivity extends AppCompatActivity {
         data = new ArrayList<Products>();
         connectionManager = new NetworkConnectionManager(this);
         sessionManger = new PrefManager(this);
-        apiInitialize = AppController.getInstance().createService(AllApi.class);
+
 
         // sortbyLayout = (LinearLayout) findViewById(R.id.category_products_sortby_layout);
         // refineLayout = (LinearLayout) findViewById(R.id.category_products_refine_layout);

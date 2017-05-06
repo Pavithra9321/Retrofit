@@ -24,7 +24,7 @@ public class Products {
         @SerializedName(Const.TITLE_KEY)
         String name;
         @SerializedName(Const.ID_KEY)
-        int id;
+        float id;
         /*@SerializedName(Const.IMAGE_OBJECT_KEY)
         private Map<String, Image> result;*/
 
@@ -36,11 +36,11 @@ public class Products {
             this.name = name;
         }
 
-        public int getId() {
+        public float getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(float id) {
             this.id = id;
         }
     }
