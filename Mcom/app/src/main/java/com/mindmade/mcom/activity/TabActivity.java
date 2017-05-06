@@ -1,13 +1,16 @@
 package com.mindmade.mcom.activity;
 
+import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mindmade.mcom.R;
@@ -48,6 +51,7 @@ public class TabActivity extends AppCompatActivity {
         setupViewPager(tabViewPager);
         tabLayout.setupWithViewPager(tabViewPager);
         tabViewPager.setCurrentItem(initialPage);
+
         setupTabIcons();
 
         tabViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -71,21 +75,21 @@ public class TabActivity extends AppCompatActivity {
         Log.d("Success", "Comesss");
         TextView tabOne = (TextView) LayoutInflater.from(TabActivity.this).inflate(R.layout.custom_tab_bar_layout, null);
         tabOne.setText(Const.CATEGORIES);
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.categories, 0, 0);
+        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_categories, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabOne);
         TextView tabTwo = (TextView) LayoutInflater.from(TabActivity.this).inflate(R.layout.custom_tab_bar_layout, null);
         tabTwo.setText(Const.SEARCH);
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.categories, 0, 0);
+        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_search, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(TabActivity.this).inflate(R.layout.custom_tab_bar_layout, null);
         tabThree.setText(Const.CART);
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.categories, 0, 0);
+        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_cart, 0, 0);
         tabLayout.getTabAt(2).setCustomView(tabThree);
 
         TextView tabFour = (TextView) LayoutInflater.from(TabActivity.this).inflate(R.layout.custom_tab_bar_layout, null);
         tabFour.setText(Const.ABOUT_US);
-        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.categories, 0, 0);
+        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.about_us_tab, 0, 0);
         tabLayout.getTabAt(3).setCustomView(tabFour);
 
         tabLayout.getTabAt(initialPage).getCustomView().setSelected(true);
