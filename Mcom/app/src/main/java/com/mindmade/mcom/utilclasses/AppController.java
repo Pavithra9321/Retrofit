@@ -51,6 +51,7 @@ public class AppController extends Application {
 
     }
 
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();

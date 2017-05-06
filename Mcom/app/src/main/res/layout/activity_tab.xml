@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
-            android:background="@color/tabcolor">
+            android:background="@color/colorPrimary">
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tab_tab_bar"
@@ -32,7 +32,7 @@
                 android:animateLayoutChanges="true"
                 android:elevation="2dp"
                 android:minHeight="?attr/actionBarSize"
-                app:tabBackground="@color/tabcolor"
+                app:tabBackground="@color/colorPrimary"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@android:color/transparent"
                 app:tabIndicatorHeight="0dp"
