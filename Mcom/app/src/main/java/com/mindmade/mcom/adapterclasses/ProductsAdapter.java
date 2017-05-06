@@ -50,9 +50,9 @@ public class ProductsAdapter  extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ProductsAdapter.ProductViewHolder) {
           //  Log.w("Success", "Data::: " + data.get(position).getResult().get("src"));
-            Log.w("Success", "Data::: " + data.get(position).getName());
+           /* Log.w("Success", "Data::: " + data.get(position).getName());
             Log.w("Success", "Data::: " + data.get(position).getId());
-            ((ProductsAdapter.ProductViewHolder) holder).productNameTV.setText(data.get(position).getName());
+            ((ProductsAdapter.ProductViewHolder) holder).productNameTV.setText(data.get(position).getName());*/
 
 //            Glide.with(mContext).load(data.get(position).getResult().get("src")).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
 //                @Override
