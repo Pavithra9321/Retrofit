@@ -2,7 +2,10 @@ package com.mindmade.mcom.utilclasses.network;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mindmade.mcom.utilclasses.Const;
+import com.mindmade.mcom.utilclasses.ToStringConverterFactory;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -11,6 +14,7 @@ import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import retrofit2.Converter;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -48,10 +52,15 @@ public class ServiceGenerator {
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
+   /* private static Retrofit.Builder builder =
+            new Retrofit.Builder()
+                    .baseUrl(API_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create());*/
+
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(API_BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create());
+                    .addConverterFactory(new ToStringConverterFactory());
 
     private static Retrofit retrofit = builder.build();
 
@@ -106,6 +115,7 @@ public class ServiceGenerator {
             return chain.proceed(request);
         }
     }
+
 }
 
 
