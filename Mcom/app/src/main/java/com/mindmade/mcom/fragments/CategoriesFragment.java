@@ -1,5 +1,7 @@
 package com.mindmade.mcom.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -40,7 +42,8 @@ public class CategoriesFragment extends Fragment {
     NetworkConnectionManager connectionManager;
     AllApi apiInitialize;
     PrefManager sessionManger;
-    List<CategoryModel> data;
+    List<CategoryModel.Category> data;
+    public Activity activity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,7 @@ public class CategoriesFragment extends Fragment {
         connectionManager = new NetworkConnectionManager(getActivity());
         sessionManger = new PrefManager(getActivity());
         apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE,Const.PASSWORD_VALUE);
-
+        data = new ArrayList<CategoryModel.Category>();
         categoryRecyclerView = (RecyclerView) categories.findViewById(R.id.common_recyclerview);
         categoryNodataTV = (TextView) categories.findViewById(R.id.common_nodata_TV);
         categoryProgressbar = (ProgressBar) categories.findViewById(R.id.common_progressbar);
@@ -94,10 +97,6 @@ public class CategoriesFragment extends Fragment {
                 @Override
                 public void onResponse(Call<CategoryModel> call, Response<CategoryModel> response) {
                     Log.w("Success", "Response::: " + new Gson().toJson(response.body()));
-                    Log.w("Success", "Response::: " + new Gson().toJson(response.code()));
-                    Log.w("Success", "Response::: " + new Gson().toJson(response.message()));
-                    Log.w("Success", "Response::: " + new Gson().toJson(response.errorBody()));
-                    Log.w("Success", "Response::: " + new Gson().toJson(response.headers()));
                     try {
                         if (response.isSuccessful()) {
 
@@ -114,9 +113,11 @@ public class CategoriesFragment extends Fragment {
                             } else {
 
                             }*/
-                            data = new ArrayList<CategoryModel>();
-                            data.add(categoryModel);
-                            CategoryAdapter adapter = new CategoryAdapter(getActivity(), data);
+
+                            data.addAll(categoryModel.getCategoryList());
+
+                            CategoryAdapter adapter = new CategoryAdapter(activity, data);
+                            Log.w("Suuccess","asxfdf::: "+data.size());
                             categoryRecyclerView.setAdapter(adapter);
                         } else {
                             categoryRecyclerView.setVisibility(View.GONE);
@@ -144,6 +145,14 @@ public class CategoriesFragment extends Fragment {
             categoryProgressbar.setVisibility(View.GONE);
             categoryNodataTV.setVisibility(View.VISIBLE);
             //categoryNodataTV.setText(getString(R.string.netUnavailable));
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof Activity) {
+            activity = (Activity) context;
         }
     }
 }

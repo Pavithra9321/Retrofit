@@ -29,8 +29,8 @@ public class CategoryModel {
         String name;
         @SerializedName(Const.ID_KEY)
         int id;
-        /*@SerializedName(Const.IMAGE_OBJECT_KEY)
-        private Map<String, Image> result;*/
+        @SerializedName(Const.IMAGE_OBJECT_KEY)
+        private Map<String, String> result;
 
         public String getName() {
             return name;
@@ -48,16 +48,24 @@ public class CategoryModel {
             this.id = id;
         }
 
-       /* public Map<String, Image> getResult() {
+        /*public Map<String, Image> getResult() {
             return result;
         }
 
         public void setResult(Map<String, Image> result) {
             this.result = result;
         }*/
+
+        public Map<String, String> getResult() {
+            return result;
+        }
+
+        public void setResult(Map<String, String> result) {
+            this.result = result;
+        }
     }
 
-    /*public class Image {
+    public class Image {
         @SerializedName(Const.SRC_KEY)
         String src;
 
@@ -69,5 +77,5 @@ public class CategoryModel {
         public void setSrc(String src) {
             this.src = src;
         }
-    }*/
+    }
 }
