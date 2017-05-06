@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@+id/tab_img"
-    android:color="@color/whitecolor"
+    android:color="@color/colorBackground"
     android:gravity="center"
     android:state_selected="true"
     android:state_activated="true"

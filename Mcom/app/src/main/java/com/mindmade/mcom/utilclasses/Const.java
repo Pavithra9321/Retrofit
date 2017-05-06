@@ -15,7 +15,17 @@ public class Const {
     public static final String IMAGE_OBJECT_KEY="image";
     public static final String SRC_KEY="src";
 
-
+    /*Product Adapter Json respons Keywords*/
+    public  static final String PRODUCT_URL="products.json";
+    public static final String PRODUCT_ARRAY_KEY = "Products";
+    public static final String PRODUCT_ID_KEY = "id";
+    public static final String PRODUCT_NAME_KEY = "name";
+    public static final String PRODUCT_CAT_ID_KEY = "category_id";
+    public static final String PRODUCT_IMAGE_KEY = "image";
+    public static final String PRODUCT_DESC_KEY = "description";
+    public static final String PRODUCT_PRICE_KEY = "price";
+    public static final String PRODUCT_OFF_PRICE_KEY = "offer_price";
+    public static final String TYPE_KEY = "type";
    
 
     public static final String APP_NAME = "MCom";

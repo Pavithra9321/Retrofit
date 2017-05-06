@@ -1,5 +1,7 @@
 package com.mindmade.mcom.utilclasses.network;
 
+import android.text.TextUtils;
+
 import com.mindmade.mcom.utilclasses.Const;
 
 import java.util.concurrent.TimeUnit;
@@ -25,8 +27,18 @@ public class ServiceGenerator {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient).build();
 
+
+
         return retrofit.create(serviceClass);
 
     }
 
 }
+
+
+
+
+
+
+
+
