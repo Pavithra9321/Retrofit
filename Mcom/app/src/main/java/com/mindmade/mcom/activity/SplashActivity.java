@@ -8,8 +8,7 @@ import android.os.Bundle;
 import com.mindmade.mcom.R;
 
 public class SplashActivity extends AppCompatActivity {
-    private int interval = 10 * 200;
-
+    private int interval = 10 * 300;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,11 +16,11 @@ public class SplashActivity extends AppCompatActivity {
         callNextIntent(TabActivity.class);
     }
 
-    public void callNextIntent(final Class intentclass) {
+    private void callNextIntent(final Class intentClass) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent nextIntent = new Intent(SplashActivity.this, intentclass);
+                Intent nextIntent = new Intent(SplashActivity.this, intentClass);
                 startActivity(nextIntent);
                 finish();
             }
