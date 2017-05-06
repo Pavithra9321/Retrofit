@@ -41,4 +41,11 @@ public class Const {
     public static final String CART = "CART";
     public static final String ABOUT_US = "ABOUT US";
 
+
+  /*Search Activity*/
+  public static final String LIMIT_KEY="limit";
+  public static final String LIMIT_VALUE="10";
+  public static final String FIELDS_KEY="fields";
+  public static final String FIELDS_VALUE="id,title";
+
 }

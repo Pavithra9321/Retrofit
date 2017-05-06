@@ -11,9 +11,9 @@
         android:id="@+id/category_imageview"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:scaleType="matrix"
         android:src="@drawable/banner_men"
         android:contentDescription="@string/app_name"
+        android:adjustViewBounds="true"
         android:layout_margin="2dp"/>
 
     <ProgressBar
