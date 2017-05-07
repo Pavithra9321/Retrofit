@@ -35,6 +35,10 @@ public class Const {
     public static final String TYPE_KEY = "type";
     public static final String PRODUCT_LIMIT_VALUE = "5";
 
+    /*Product List Activity*/
+    public static final String ORDER_KEY="order";
+
+
     //   Product Description
     public static final String PRODUCT_DESC_ARRAY_KEY = "product";
     public static final String PRODUCT_DESCRIPTION_URL = "products/10209534339.json";
@@ -55,6 +59,7 @@ public class Const {
     public static final String LIMIT_VALUE = "10";
     public static final String FIELDS_KEY = "fields";
     public static final String FIELDS_VALUE = "id,title";
+
 
     /*Cart Activity*/
     // Database Name
