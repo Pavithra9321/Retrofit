@@ -163,6 +163,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
                                 .crossFade()
                                 .dontAnimate()
                                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                .placeholder(R.drawable.placeholder)
                                 .into(productImageView);
 
 

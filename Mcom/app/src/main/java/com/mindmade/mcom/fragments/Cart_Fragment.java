@@ -113,7 +113,7 @@ public class Cart_Fragment extends Fragment {
             carttotalPrice.setVisibility(View.GONE);
         } else {
             carttotalItems.setText(String.valueOf(Const.CART_ITEMS_KEY + count));
-            carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + price));
+            carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + getResources().getString(R.string.rs_symbol) + price));
         }
     }
 
@@ -198,6 +198,7 @@ public class Cart_Fragment extends Fragment {
                     cartSQLiteHelper.updateCart(data.get(getAdapterPosition()));
                     cartProductQuantity.setText(String.valueOf(data.get(getAdapterPosition()).getQty()));
                     cartProductPrice.setText(data.get(getAdapterPosition()).getTotal());
+                    carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + getResources().getString(R.string.rs_symbol) + cartSQLiteHelper.getTotalPrice()));
                 } else if (v == cartLessBtn) {
                     if (data.get(getAdapterPosition()).getQty() > 1) {
                         data.get(getAdapterPosition()).setQty(Integer.parseInt(cartProductQuantity.getText().toString().trim()) - 1);
@@ -205,6 +206,7 @@ public class Cart_Fragment extends Fragment {
                         cartSQLiteHelper.updateCart(data.get(getAdapterPosition()));
                         cartProductQuantity.setText(String.valueOf(data.get(getAdapterPosition()).getQty()));
                         cartProductPrice.setText(data.get(getAdapterPosition()).getTotal());
+                        carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + getResources().getString(R.string.rs_symbol) + cartSQLiteHelper.getTotalPrice()));
                     }
                 }
             }
