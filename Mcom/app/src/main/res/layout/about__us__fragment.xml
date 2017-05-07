@@ -1,5 +1,5 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -43,14 +43,17 @@
                 android:background="@drawable/aboutus"
                 >
 
-            <ImageView
+              <com.mindmade.mcom.utilclasses.CircleImageView
                 android:id="@+id/aboutus_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:scaleType="fitXY"
                 android:layout_gravity="center"
-                android:src="@drawable/aboutlogo"
+                android:src="@drawable/logo"
                 android:layout_margin="7dp"
+                android:scaleType="centerCrop"
+                app:civ_border_color="@color/opacity"
+                app:civ_border_width="2dp"
+                app:civ_fill_color="@color/colorwhite"
                 />
             <TextView
                 android:layout_width="wrap_content"
