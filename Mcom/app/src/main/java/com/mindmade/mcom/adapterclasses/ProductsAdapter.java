@@ -55,7 +55,7 @@ public class ProductsAdapter  extends RecyclerView.Adapter {
             ((ProductsAdapter.ProductViewHolder) holder).productNameTV.setText(data.get(position).getName());
          ((ProductsAdapter.ProductViewHolder)holder).productOfferPriceTV.setText(data.get(position).getVaraiants().get(0).getPrice());
 
-            Glide.with(mContext).load(data.get(position).getImage().getSrc()).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
+            Glide.with(mContext).load(data.get(position).getImage().getSrc()).fitCenter().listener(new RequestListener<String, GlideDrawable>() {
             @Override
             public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                 ((ProductsAdapter.ProductViewHolder) holder).productAdapterProgressBar.setVisibility(View.GONE);
