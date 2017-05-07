@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindmade.mcom.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -24,6 +27,11 @@ public class SplashActivity extends AppCompatActivity {
         catch (Exception e){
             Log.d("suc","ex"+e);
         }
+        Glide.with(getApplication()).load(R.drawable.splashnewbg)
+                .thumbnail(0.5f)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(img);
     }
 
 
