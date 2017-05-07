@@ -6,17 +6,26 @@ package com.mindmade.mcom.utilclasses.model;
 
 public class CartProduct {
 
-    long id;
+    String id;
     String name;
     int qty;
     String img_url;
     String price;
+    String total;
 
-    public long getId() {
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

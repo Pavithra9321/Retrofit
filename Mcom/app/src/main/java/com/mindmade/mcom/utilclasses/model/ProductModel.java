@@ -58,10 +58,19 @@ public class ProductModel {
         @SerializedName(Const.TITLE_KEY)
         String name;
         @SerializedName(Const.ID_KEY)
-        float id;
-
+        long id;
         @SerializedName(Const.IMAGE_OBJECT_KEY)
         public Image image;
+
+        boolean cartCheck;
+
+        public boolean isCartCheck() {
+            return cartCheck;
+        }
+
+        public void setCartCheck(boolean cartCheck) {
+            this.cartCheck = cartCheck;
+        }
 
         public String getName() {
             return name;
@@ -71,11 +80,11 @@ public class ProductModel {
             this.name = name;
         }
 
-        public float getId() {
+        public long getId() {
             return id;
         }
 
-        public void setId(Float id) {
+        public void setId(long id) {
             this.id = id;
         }
 

@@ -25,11 +25,13 @@ import com.mindmade.mcom.R;
 
 import com.mindmade.mcom.adapterclasses.BottomSheetAdapter;
 import com.mindmade.mcom.adapterclasses.ProductsAdapter;
+import com.mindmade.mcom.utilclasses.CartSQLiteHelper;
 import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.NetworkConnectionManager;
 import com.mindmade.mcom.utilclasses.PrefManager;
 import com.mindmade.mcom.utilclasses.api.AllApi;
 import com.mindmade.mcom.utilclasses.model.BottomSheetItem;
+import com.mindmade.mcom.utilclasses.model.CartProduct;
 import com.mindmade.mcom.utilclasses.model.CategoryModel;
 import com.mindmade.mcom.utilclasses.model.ProductModel;
 import com.mindmade.mcom.utilclasses.network.ServiceGenerator;
@@ -64,8 +66,8 @@ public class ProductListActivity extends AppCompatActivity {
     String categoryName;
     int categoryID;
     String sort, filters;
-
-
+    CartSQLiteHelper sqLiteHelper;
+    ArrayList<CartProduct> cartData;
     BottomSheetBehavior behavior;
     private BottomSheetDialog mBottomSheetDialog;
 
@@ -77,6 +79,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         connectionManager = new NetworkConnectionManager(this);
         sessionManger = new PrefManager(this);
+        sqLiteHelper=new CartSQLiteHelper(this);
         apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE, Const.PASSWORD_VALUE);
         toolbar = (Toolbar) findViewById(R.id.category_product_toolbar);
 
@@ -217,9 +220,18 @@ public class ProductListActivity extends AppCompatActivity {
                             ProductModel productModel = response.body();
                             catProductProgressBar.setVisibility(View.GONE);
                             catProductRecyclerView.setVisibility(View.VISIBLE);
+                            cartData=new ArrayList<CartProduct>();
+                            cartData.addAll(sqLiteHelper.getAllCartItems());
                             data.addAll(productModel.getProduct());
-                            //  adapter.notifyDataChanged();
-
+                            for (int i = 0; i < productModel.getProduct().size(); i++) {
+                                for (int j = 0; j < cartData.size(); j++) {
+                                   if ( cartData.get(j).getId().equals(String.valueOf(data.get(i).getId()))){
+                                       data.get(i).setCartCheck(true);
+                                   }else {
+                                       data.get(i).setCartCheck(false);
+                                   }
+                                }
+                            }
                             ProductsAdapter adapter = new ProductsAdapter(ProductListActivity.this, data);
                             Log.w("Suuccess", "asxfdf::: " + data.size());
                             catProductRecyclerView.setAdapter(adapter);
