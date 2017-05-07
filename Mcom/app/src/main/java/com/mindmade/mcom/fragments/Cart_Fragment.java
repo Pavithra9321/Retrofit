@@ -70,7 +70,9 @@ public class Cart_Fragment extends Fragment {
                 carttotalPrice.setVisibility(View.VISIBLE);
                 cartRecyclerView.setVisibility(View.VISIBLE);
                 cartProgressbar.setVisibility(View.GONE);
-                updatePriceAndCount(String.valueOf(data.size()), cartHelper.getTotalPrice());
+                carttotalItems.setText(String.valueOf(Const.CART_ITEMS_KEY + String.valueOf(data.size())));
+                carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + getResources().getString(R.string.rs_symbol)+cartHelper.getTotalPrice()));
+               // updatePriceAndCount(String.valueOf(data.size()), cartHelper.getTotalPrice());
             } else {
                 cartRecyclerView.setVisibility(View.GONE);
                 cartProgressbar.setVisibility(View.GONE);
@@ -92,30 +94,9 @@ public class Cart_Fragment extends Fragment {
         return cart;
     }
 
-    public void updatePriceAndCount(String count, String price) {
-        Log.d("Success", "Count::: " + count);
-        Log.d("Success", "Price:::" + price);
-        this.count = count;
-        this.price = price;
 
-       /* if (count.equals("0")||count.equals("")){
-            cartRecyclerView.setVisibility(View.GONE);
-            cartProgressbar.setVisibility(View.GONE);
-            cartNodataTV.setVisibility(View.VISIBLE);
-            cartNodataTV.setText("No data found");
-            cartToChechout.setVisibility(View.GONE);
-            carttotalItems.setVisibility(View.GONE);
-            carttotalPrice.setVisibility(View.GONE);
-        }else {
-            carttotalItems.setText(String.valueOf(Const.CART_ITEMS_KEY + count));
-            carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + price));
-        }*/
-        // carttotalItems.setText(String.valueOf(Const.CART_ITEMS_KEY + count));
-        //  carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + price));
-        updateUI();
-    }
 
-    private void updateUI() {
+    public void updateUI(String count, String price) {
         if (count.equals("0") || count.equals("")) {
             cartRecyclerView.setVisibility(View.GONE);
             cartProgressbar.setVisibility(View.GONE);

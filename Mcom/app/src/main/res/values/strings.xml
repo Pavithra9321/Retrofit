@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Mcom</string>
     <string name="search_hint">Search&#8230;</string>
+    <string name="Rs_string">\u20A8</string>
+    <string name="rs_symbol">\u20B9</string>
     <string name="hint_prompt">Speak an item name or number</string>
     <!--Splash Activity-->
     <string name="copyrightsStr">Copyright © 2017.MindMadetech.com</string>
@@ -17,6 +19,7 @@ We provide complete Software Development Life Cycle, ranging from new product de
     <string name="categoryStr">Category</string>
     <string name="add_to_cart_Str">Add to cart</string>
     <string name="continue_checkout_str">Continue to Checkout</string>
+    <string name="quantityStr">Quantity</string>
 
 
 </resources>

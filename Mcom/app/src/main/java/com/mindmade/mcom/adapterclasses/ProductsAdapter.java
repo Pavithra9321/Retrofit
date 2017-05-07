@@ -86,7 +86,7 @@ public class ProductsAdapter extends RecyclerView.Adapter {
                     ((ProductsAdapter.ProductViewHolder) holder).productAdapterProgressBar.setVisibility(View.GONE);
                     return false;
                 }
-            }).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(((ProductsAdapter.ProductViewHolder) holder).productImageview);
+            }).diskCacheStrategy(DiskCacheStrategy.SOURCE).placeholder(R.drawable.placeholder).into(((ProductsAdapter.ProductViewHolder) holder).productImageview);
 
             if (data.get(position).isCartCheck()) {
                 ((ProductsAdapter.ProductViewHolder) holder).productlikeImage.setImageResource(R.drawable.like_red);

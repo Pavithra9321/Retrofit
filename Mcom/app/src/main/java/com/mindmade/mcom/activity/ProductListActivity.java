@@ -226,10 +226,12 @@ public class ProductListActivity extends AppCompatActivity {
                             for (int i = 0; i < productModel.getProduct().size(); i++) {
                                 for (int j = 0; j < cartData.size(); j++) {
                                    if ( cartData.get(j).getId().equals(String.valueOf(data.get(i).getId()))){
+                                       Log.d("Success","Cart Name::: "+cartData.get(j).getName());
+                                       Log.d("Success","Name::: "+data.get(i).getName());
                                        data.get(i).setCartCheck(true);
-                                   }else {
+                                   }/*else {
                                        data.get(i).setCartCheck(false);
-                                   }
+                                   }*/
                                 }
                             }
                             ProductsAdapter adapter = new ProductsAdapter(ProductListActivity.this, data);

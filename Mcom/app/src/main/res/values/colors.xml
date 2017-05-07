@@ -5,7 +5,9 @@
     <color name="colorAccent">#63A601</color>
     <color name="colorBackground">#EEEEEE</color>
     <color name="colorwhite">#ffffff</color>
-    <color name="searchTextcolor">#666</color>
+    <color name="searchTextcolor">#666666</color>
+    <color name="qtyTextcolor">#999999</color>
+    <color name="borderColor">#BD666666</color>
      <color name="colorblack">#FC080808</color>
     <color name="colorproductText">#666666</color>
 </resources>

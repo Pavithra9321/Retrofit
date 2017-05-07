@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
         Glide.with(getApplication()).load(R.drawable.splashnewbg)
                 .thumbnail(0.5f)
                 .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(img);
     }
 
