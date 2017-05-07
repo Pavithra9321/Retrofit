@@ -5,6 +5,7 @@
     <color name="colorAccent">#63A601</color>
     <color name="colorBackground">#EEEEEE</color>
     <color name="colorwhite">#ffffff</color>
+    <color name="opacity">#8Cffffff</color>
     <color name="searchTextcolor">#666</color>
      <color name="colorblack">#FC080808</color>
     <color name="colorproductText">#666666</color>
