@@ -48,12 +48,12 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:src="@drawable/logo"
+                android:src="@mipmap/mcom"
                 android:layout_margin="7dp"
-                android:scaleType="centerCrop"
                 app:civ_border_color="@color/opacity"
                 app:civ_border_width="2dp"
                 app:civ_fill_color="@color/colorwhite"
+                 android:scaleType="centerCrop"
                 />
             <TextView
                 android:layout_width="wrap_content"
