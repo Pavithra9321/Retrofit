@@ -1,4 +1,4 @@
-package com.mindmade.mcom.adapter;
+package com.mindmade.mcom.adapterclasses;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

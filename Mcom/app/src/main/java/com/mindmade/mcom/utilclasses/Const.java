@@ -38,6 +38,10 @@ public class Const {
     public static final String TYPE_KEY = "type";
     public static final String PRODUCT_LIMIT_VALUE = "5";
 
+    /*Product List Activity*/
+    public static final String ORDER_KEY="order";
+
+
     //   Product Description
     public static final String PRODUCT_DESC_ARRAY_KEY = "product";
     public static final String PRODUCT_DESCRIPTION_URL = "products/10209534339.json";
@@ -59,6 +63,7 @@ public class Const {
     public static final String FIELDS_KEY = "fields";
     public static final String FIELDS_VALUE = "id,title";
 
+
     /*Cart Activity*/
     // Database Name
     public static final String DATABASE_NAME = "mComDB";
@@ -75,7 +80,7 @@ public class Const {
     public static final String CART_ITEMS_KEY = "Items: ";
 
 
-    public static final String[] SORTBY_ARRAY = {"Populartity", "New", "Price : Low - High", "Price : High - Low"};
+    public static final String[] SORTBY_ARRAY = {"ASC", "DESC"};
 
   /*About us**/
   public static final String FACEBOOK="https://www.facebook.com/mindmadetech/";

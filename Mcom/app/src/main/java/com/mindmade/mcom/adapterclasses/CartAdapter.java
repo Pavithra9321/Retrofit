@@ -17,6 +17,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.mindmade.mcom.R;
+import com.mindmade.mcom.activity.TabActivity;
 import com.mindmade.mcom.fragments.Cart_Fragment;
 import com.mindmade.mcom.utilclasses.CartSQLiteHelper;
 import com.mindmade.mcom.utilclasses.model.CartProduct;
@@ -50,7 +51,7 @@ public class CartAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof CartViewHolder) {
             ((CartViewHolder) holder).cartProductName.setText(data.get(position).getName());
-            ((CartViewHolder) holder).cartProductPrice.setText(data.get(position).getTotal());
+            ((CartViewHolder) holder).cartProductPrice.setText(String.valueOf(mContext.getResources().getString(R.string.rs_symbol)+data.get(position).getTotal()));
             Log.w("Success", "QTY::: " + data.get(position).getQty());
             ((CartViewHolder) holder).cartProductQuantity.setText(String.valueOf(data.get(position).getQty()));
             Glide.with(mContext).load(data.get(position).getImg_url()).fitCenter().listener(new RequestListener<String, GlideDrawable>() {
@@ -99,7 +100,7 @@ public class CartAdapter extends RecyclerView.Adapter {
             if (v == cartDeleteBtn) {
                 cartSQLiteHelper.deleteCart(data.get(getAdapterPosition()));
                 data.remove(getAdapterPosition());
-              //    mCart_fragment.updatePriceAndCount(String.valueOf(data.size()), cartSQLiteHelper.getTotalPrice());
+                //  ((TabActivity)mContext).updatePriceAndCount(String.valueOf(data.size()), cartSQLiteHelper.getTotalPrice());
                 Log.d("Success", "Size:::" + String.valueOf(data.size()));
                 Log.d("Success", "Size:::" + cartSQLiteHelper.getTotalPrice());
                 notifyDataSetChanged();
@@ -110,11 +111,13 @@ public class CartAdapter extends RecyclerView.Adapter {
                 cartProductQuantity.setText(String.valueOf(data.get(getAdapterPosition()).getQty()));
                 cartProductPrice.setText(data.get(getAdapterPosition()).getTotal());
             } else if (v == cartLessBtn) {
-                data.get(getAdapterPosition()).setQty(Integer.parseInt(cartProductQuantity.getText().toString().trim()) - 1);
-                data.get(getAdapterPosition()).setTotal(String.valueOf(data.get(getAdapterPosition()).getQty() * Float.parseFloat((data.get(getAdapterPosition()).getPrice()))));
-                cartSQLiteHelper.updateCart(data.get(getAdapterPosition()));
-                cartProductQuantity.setText(String.valueOf(data.get(getAdapterPosition()).getQty()));
-                cartProductPrice.setText(data.get(getAdapterPosition()).getTotal());
+                if (data.get(getAdapterPosition()).getQty() > 1) {
+                    data.get(getAdapterPosition()).setQty(Integer.parseInt(cartProductQuantity.getText().toString().trim()) - 1);
+                    data.get(getAdapterPosition()).setTotal(String.valueOf(data.get(getAdapterPosition()).getQty() * Float.parseFloat((data.get(getAdapterPosition()).getPrice()))));
+                    cartSQLiteHelper.updateCart(data.get(getAdapterPosition()));
+                    cartProductQuantity.setText(String.valueOf(data.get(getAdapterPosition()).getQty()));
+                    cartProductPrice.setText(data.get(getAdapterPosition()).getTotal());
+                }
             }
         }
     }

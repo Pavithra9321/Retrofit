@@ -3,6 +3,7 @@ package com.mindmade.mcom.activity;
 import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mindmade.mcom.R;
-import com.mindmade.mcom.adapter.TabPagerAdapter;
+import com.mindmade.mcom.adapterclasses.TabPagerAdapter;
 import com.mindmade.mcom.fragments.About_US_Fragment;
 import com.mindmade.mcom.fragments.Cart_Fragment;
 import com.mindmade.mcom.fragments.CategoriesFragment;
@@ -30,6 +31,7 @@ public class TabActivity extends AppCompatActivity {
     ViewPager tabViewPager;
     Toolbar toolbar;
     TextView toolbarTitleTV;
+    Cart_Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class TabActivity extends AppCompatActivity {
         /*Toolbar End*/
         tabLayout = (TabLayout) findViewById(R.id.tab_tab_bar);
         tabViewPager = (ViewPager) findViewById(R.id.tab_pager);
-
+        fragment = new Cart_Fragment();
         //set tablayout with viewpager so that the tabs can be swipeable
         setupViewPager(tabViewPager);
         tabLayout.setupWithViewPager(tabViewPager);
@@ -131,5 +133,14 @@ public class TabActivity extends AppCompatActivity {
         }
         toolbarTitleTV.setAllCaps(true);
         toolbarTitleTV.setText(title);
+    }
+    public void updatePriceAndCount(String count, String price) {
+        Log.d("Success", "Count::: " + count);
+        Log.d("Success", "Price:::" + price);
+
+        /*FragmentManager fm = getSupportFragmentManager();
+        Cart_Fragment fragment = (Cart_Fragment)fm.findFragmentByTag("yourTag");
+        fragment.updateUI(count,price);*/
+        fragment.updateUI(count,price);
     }
 }

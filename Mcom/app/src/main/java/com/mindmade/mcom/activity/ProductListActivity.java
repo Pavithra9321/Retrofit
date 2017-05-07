@@ -79,7 +79,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         connectionManager = new NetworkConnectionManager(this);
         sessionManger = new PrefManager(this);
-        sqLiteHelper=new CartSQLiteHelper(this);
+        sqLiteHelper = new CartSQLiteHelper(this);
         apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE, Const.PASSWORD_VALUE);
         toolbar = (Toolbar) findViewById(R.id.category_product_toolbar);
 
@@ -201,7 +201,7 @@ public class ProductListActivity extends AppCompatActivity {
 
     private void loadDataFromApi(int index) {
         if (connectionManager.isConnectingToInternet()) {
-            Call<ProductModel> Productscall = apiInitialize.getProductsListData(Const.PRODUCT_LIMIT_VALUE);
+            Call<ProductModel> Productscall = apiInitialize.getProductsListData(Const.PRODUCT_LIMIT_VALUE, sort);
             Log.w("Success", "URL::: " + Productscall.request().url().toString());
 
             Productscall.enqueue(new Callback<ProductModel>() {
@@ -220,16 +220,18 @@ public class ProductListActivity extends AppCompatActivity {
                             ProductModel productModel = response.body();
                             catProductProgressBar.setVisibility(View.GONE);
                             catProductRecyclerView.setVisibility(View.VISIBLE);
-                            cartData=new ArrayList<CartProduct>();
+                            cartData = new ArrayList<CartProduct>();
                             cartData.addAll(sqLiteHelper.getAllCartItems());
                             data.addAll(productModel.getProduct());
                             for (int i = 0; i < productModel.getProduct().size(); i++) {
                                 for (int j = 0; j < cartData.size(); j++) {
-                                   if ( cartData.get(j).getId().equals(String.valueOf(data.get(i).getId()))){
-                                       data.get(i).setCartCheck(true);
-                                   }else {
+                                    if (cartData.get(j).getId().equals(String.valueOf(data.get(i).getId()))) {
+                                        Log.d("Success", "Cart Name::: " + cartData.get(j).getName());
+                                        Log.d("Success", "Name::: " + data.get(i).getName());
+                                        data.get(i).setCartCheck(true);
+                                    }/*else {
                                        data.get(i).setCartCheck(false);
-                                   }
+                                   }*/
                                 }
                             }
                             ProductsAdapter adapter = new ProductsAdapter(ProductListActivity.this, data);
@@ -328,5 +330,56 @@ public class ProductListActivity extends AppCompatActivity {
             behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
 
+        mBottomSheetDialog = new BottomSheetDialog(this);
+        View view = getLayoutInflater().inflate(R.layout.sheet, null);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        /*recyclerView.setAdapter(new BottomSheetAdapter(createItems(), new BottomSheetAdapter.ItemListener() {
+            @Override
+            public void onItemClick(BottomSheetItem item) {
+                if (mBottomSheetDialog != null) {
+                    mBottomSheetDialog.dismiss();
+                }
+            }
+        }));*/
+        recyclerView.setAdapter(new BottomSheetAdapter(createItems(), new BottomSheetAdapter.ItemListener() {
+            @Override
+            public void onItemClick(BottomSheetItem item, int pos) {
+                if (mBottomSheetDialog != null) {
+                    // Toast.makeText(CategoryProductsActivity.this, "Clicked ::: " + pos, Toast.LENGTH_SHORT).show();
+                    sort = Const.TITLE_KEY + " " + String.valueOf(item.getTitle());
+                    //  sort=connectionManager.urlencoder(sort);
+                    Log.w("Success", "Sort Key::: " + sort);
+                    mBottomSheetDialog.dismiss();
+                    /*if (data.size() > 0) {
+                        data.clear();
+                        adapter.notifyDataChanged();
+                        adapter.setMoreDataAvailable(true);
+                    }*/
+                    catProductProgressBar.setVisibility(View.VISIBLE);
+                    catProductRecyclerView.setVisibility(View.GONE);
+                    loadDataFromApi(0);
+                }
+            }
+        }));
+
+
+        mBottomSheetDialog.setContentView(view);
+        mBottomSheetDialog.show();
+        mBottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                mBottomSheetDialog = null;
+            }
+        });
+    }
+
+    public List<BottomSheetItem> createItems() {
+        ArrayList<BottomSheetItem> items = new ArrayList<>();
+        for (int i = 0; i < Const.SORTBY_ARRAY.length; i++) {
+            items.add(new BottomSheetItem(Const.SORTBY_ARRAY[i], i));
+        }
+        return items;
     }
 }
