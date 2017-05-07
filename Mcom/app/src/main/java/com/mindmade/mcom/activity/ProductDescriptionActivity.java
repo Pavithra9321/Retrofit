@@ -178,6 +178,7 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
                                 .crossFade()
                                 .dontAnimate()
                                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                .placeholder(R.drawable.placeholder)
                                 .into(productImageView);
 
                         cartData = new ArrayList<CartProduct>();

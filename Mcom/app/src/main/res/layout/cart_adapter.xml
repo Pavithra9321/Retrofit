@@ -119,6 +119,9 @@
                     android:layout_gravity="center_vertical"
                     android:padding="05dp"
                     android:text="@string/app_name"
+                    android:ems="4"
+                    android:maxEms="4"
+                    android:gravity="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@android:color/black" />
 

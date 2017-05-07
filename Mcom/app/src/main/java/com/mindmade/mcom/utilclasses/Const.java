@@ -5,10 +5,13 @@ package com.mindmade.mcom.utilclasses;
  */
 public class Const {
     //Common Strings
-    public static final String LIVE_URL = "https://rajaprasanna.myshopify.com/admin/";
+    public static final String LIVE_URL = "https://momura-store.myshopify.com/admin/";
+    //public static final String LIVE_URL = "https://rajaprasanna.myshopify.com/admin/";
     //  public static final String LIVE_URL = "https://rajaprasanna.myshopify.com/admin/";
-    public static final String API_VALUE = "c6afdca552a55bf647550fd5b1b1a15e";
-    public static final String PASSWORD_VALUE = "b9a0e3f4fbca6ce53dd3e6a761ed556a";
+    /*public static final String API_VALUE = "c6afdca552a55bf647550fd5b1b1a15e";
+    public static final String PASSWORD_VALUE = "b9a0e3f4fbca6ce53dd3e6a761ed556a"; */
+    public static final String API_VALUE = "7373d7107fa027eb96fba677eb2b53f2";
+    public static final String PASSWORD_VALUE = "83d96882dda2debf4acfe6eb54ce645c";
 
     /*Category Activity*/
     public static final String CATEGORY_URL = "custom_collections.json";
