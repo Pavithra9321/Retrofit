@@ -142,61 +142,60 @@ public class ProductListActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
 
 
         //loadingView = LayoutInflater.from(getActivity()).inflate(R.layout.bottom_loading, latestRecyclerView, false);
 
 
 //
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                if (adapter.getItemViewType(position) == TYPE_PRODUCT) {
-                    return 1;
-                } else {
-                    return 2;
-                }
-                //  return bottom_sheet_adapter.getItemViewType(position) == TYPE_LOAD ? 2 : 1;
-            }
-        });
-
-        adapter.setLoadMoreListener(new ProductsAdapter.OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-
-                catProductRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                          Log.d("Success", "Size:::: " + data.size());
-                        int index = data.size();
-                     //  TYPE_LOAD=data.size();
-                        loadDataFromApi(index);
-                    }
-                });
-            }
-        });
-
-       catProductRecyclerView.setAdapter(adapter);
-
-        catProductRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (data.size() > 0) {
-                    data.clear();
-                    adapter.notifyDataChanged();
-                    adapter.setMoreDataAvailable(true);
-                }
-                loadDataFromApi(0);
-            }
-        });
-
-        loadDataFromApi(0);
-
-
+//        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                if (adapter.getItemViewType(position) == TYPE_PRODUCT) {
+//                    return 1;
+//                } else {
+//                    return 2;
+//                }
+//                //  return bottom_sheet_adapter.getItemViewType(position) == TYPE_LOAD ? 2 : 1;
+//            }
+//        });
+//
+//        adapter.setLoadMoreListener(new ProductsAdapter.OnLoadMoreListener() {
+//            @Override
+//            public void onLoadMore() {
+//
+//                catProductRecyclerView.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                          Log.d("Success", "Size:::: " + data.size());
+//                        int index = data.size();
+//                     //  TYPE_LOAD=data.size();
+//                        loadDataFromApi(index);
+//                    }
+//                });
+//            }
+//        });
+//
+//       catProductRecyclerView.setAdapter(adapter);
+//
+//        catProductRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                if (data.size() > 0) {
+//                    data.clear();
+//                    adapter.notifyDataChanged();
+//                    adapter.setMoreDataAvailable(true);
+//                }
+//                loadDataFromApi(0);
+//            }
+//        });
+//
+//        loadDataFromApi(0);
+//
 
 
     }
+
     private void loadDataFromApi(int index) {
         if (connectionManager.isConnectingToInternet()) {
             Call<ProductModel> Productscall = apiInitialize.getProductsListData(Const.PRODUCT_LIMIT_VALUE);
@@ -315,5 +314,7 @@ public class ProductListActivity extends AppCompatActivity {
     private void showBottomSheetDialog() {
         if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-    }
+        }
 
+    }
+}
