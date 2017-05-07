@@ -2,9 +2,10 @@ package com.mindmade.mcom.utilclasses.api;
 
 import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.model.CategoryModel;
+import com.mindmade.mcom.utilclasses.model.ProductDescription;
 import com.mindmade.mcom.utilclasses.model.ProductModel;
 import com.mindmade.mcom.utilclasses.model.SearchModel;
-import com.mindmade.mcom.utilclasses.model.Products
+import com.mindmade.mcom.utilclasses.model.Products;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -19,7 +20,9 @@ public interface AllApi {
     @GET(Const.CATEGORY_URL)
     Call<CategoryModel> getCategoriesData();
 
-    @Headers("Content-Type: application/json")
+    @GET(Const.PRODUCT_DESCRIPTION_URL)
+    Call<ProductDescription> getProductDescriptiondata();
+
     @GET(Const.PRODUCT_URL)
     Call<ProductModel> getProductsListData(@Query(Const.LIMIT_KEY) String limit);
 

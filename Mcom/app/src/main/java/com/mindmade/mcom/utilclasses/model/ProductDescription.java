@@ -1,37 +1,36 @@
 package com.mindmade.mcom.utilclasses.model;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mindmade.mcom.utilclasses.Const;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by Mindmade technologies on 06-05-2017.
+ * Created by Mindmade technologies on 07-05-2017.
  */
-public class ProductModel {
+public class ProductDescription {
+    @SerializedName(Const.PRODUCT_DESC_ARRAY_KEY)
 
-
-    @SerializedName(Const.PRODUCT_ARRAY_KEY)
-    @Expose
-    private ArrayList<Products> product = new ArrayList<>();
+    private Object products;
 
     /**
      * @return The contacts
      */
-    public ArrayList<Products> getProduct() {
-        return product;
+    public Object getProduct() {
+        return products;
     }
 
 
-    public void setProduct(ArrayList<Products> product) {
-        this.product = product;
+    public void setProduct(Object product) {
+        this.products = product;
     }
 
-//
-//    @SerializedName(Const.PRODUCT_ARRAY_KEY)
+//    //
+//    @SerializedName(Const.PRODUCT_DESC_ARRAY_KEY)
 //    List<Products> productList;
 //
 //    public List<Products> getProductList() {
@@ -41,27 +40,15 @@ public class ProductModel {
 //    public void setProductList(List<Products> productList) {
 //        this.productList = productList;
 //    }
-//
-@SerializedName(Const.PRODUCT_LIKE)
-    boolean likeOrNot;
-
-    public boolean isLikeOrNot() {
-        return likeOrNot;
-    }
-
-    public void setLikeOrNot(boolean likeOrNot) {
-        this.likeOrNot = likeOrNot;
-    }
-
-
+////
     public class Products {
         @SerializedName(Const.TITLE_KEY)
         String name;
         @SerializedName(Const.ID_KEY)
-        float id;
+        Long id;
 
         @SerializedName(Const.IMAGE_OBJECT_KEY)
-        public Image image;
+        public ProductModel.Products.Image image;
 
         public String getName() {
             return name;
@@ -75,52 +62,52 @@ public class ProductModel {
             return id;
         }
 
-        public void setId(Float id) {
+        public void setId(Long id) {
             this.id = id;
         }
 
-    @SerializedName(Const.PRODUCT_VARAINTS)
+        @SerializedName(Const.PRODUCT_VARAINTS)
 
-    private ArrayList<Variants> varaiants = new ArrayList<>();
-
-
-
-    /**
-     * @return The contacts
-     */
-    public ArrayList<Variants> getVaraiants() {
-        return varaiants;
-    }
-
-
-    public void setVaraiants(ArrayList<Variants> varaiants) {
-        this.varaiants = varaiants;
-    }
-
-
-    public Image getImage(){
-        return image;
-    }
-
-    public void setImage(Image image){
-        this.image=image;
-    }
+        private ArrayList<ProductModel.Products.Variants> varaiants = new ArrayList<>();
 
 
 
-    public class Variants{
-        @SerializedName(Const.PRODUCT_PRICE)
-        String price;
-
-
-        public String getPrice() {
-            return price;
+        /**
+         * @return The contacts
+         */
+        public ArrayList<ProductModel.Products.Variants> getVaraiants() {
+            return varaiants;
         }
 
-        public void setPrice(String price) {
-            this.price = price;
+
+        public void setVaraiants(ArrayList<ProductModel.Products.Variants> varaiants) {
+            this.varaiants = varaiants;
         }
-    }
+
+
+        public ProductModel.Products.Image getImage(){
+            return image;
+        }
+
+        public void setImage(ProductModel.Products.Image image){
+            this.image=image;
+        }
+
+
+
+        public class Variants{
+            @SerializedName(Const.PRODUCT_PRICE)
+            String price;
+
+
+            public String getPrice() {
+                return price;
+            }
+
+            public void setPrice(String price) {
+                this.price = price;
+            }
+        }
 
 
 
@@ -199,6 +186,3 @@ public class ProductModel {
 
 
 }
-
-
-

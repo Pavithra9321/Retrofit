@@ -17,6 +17,8 @@
        android:layout_gravity="center"
         android:visibility="visible" />
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +29,10 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_margin="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:src="@drawable/error_page" />
 
         <LinearLayout
@@ -78,6 +84,30 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@android:color/black" />
             </LinearLayout>
+
         </LinearLayout>
+
     </LinearLayout>
+    <ImageButton
+        android:id="@+id/likeImage"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:background="@android:color/transparent"
+        android:src="@drawable/like_gray"
+        android:visibility="visible" />
+    <ImageButton
+        android:id="@+id/likeImageRed"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:background="@android:color/transparent"
+        android:src="@drawable/like_red"
+        android:visibility="gone" />
 </android.support.v7.widget.CardView>

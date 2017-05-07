@@ -64,7 +64,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         connectionManager = new NetworkConnectionManager(this);
         sessionManger = new PrefManager(this);
-        apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE,Const.PASSWORD_VALUE);
+        apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE, Const.PASSWORD_VALUE);
         toolbar = (Toolbar) findViewById(R.id.category_product_toolbar);
 
         setSupportActionBar(toolbar);
@@ -85,7 +85,7 @@ public class ProductListActivity extends AppCompatActivity {
             }
         });
 
-       data = new ArrayList<>();
+        data = new ArrayList<>();
 //        connectionManager = new NetworkConnectionManager(this);
 //        sessionManger = new PrefManager(this);
 
@@ -102,60 +102,60 @@ public class ProductListActivity extends AppCompatActivity {
         //final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         catProductRecyclerView.setLayoutManager(layoutManager);
         loadDataFromApi(0);
+        adapter = new ProductsAdapter(this, data);
+
+        //loadingView = LayoutInflater.from(getActivity()).inflate(R.layout.bottom_loading, latestRecyclerView, false);
+
+
+//
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (adapter.getItemViewType(position) == TYPE_PRODUCT) {
+                    return 1;
+                } else {
+                    return 2;
+                }
+                //  return bottom_sheet_adapter.getItemViewType(position) == TYPE_LOAD ? 2 : 1;
+            }
+        });
+
+        adapter.setLoadMoreListener(new ProductsAdapter.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+
+                catProductRecyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                          Log.d("Success", "Size:::: " + data.size());
+                        int index = data.size();
+                     //  TYPE_LOAD=data.size();
+                        loadDataFromApi(index);
+                    }
+                });
+            }
+        });
+
+       catProductRecyclerView.setAdapter(adapter);
+
+        catProductRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (data.size() > 0) {
+                    data.clear();
+                    adapter.notifyDataChanged();
+                    adapter.setMoreDataAvailable(true);
+                }
+                loadDataFromApi(0);
+            }
+        });
+
+        loadDataFromApi(0);
+
+
+
+
     }
-//         loadingView = LayoutInflater.from(getActivity()).inflate(R.layout.bottom_loading, latestRecyclerView, false);
-//        adapter = new ProductsAdapter(this, data);
-
-
-//
-//        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//            @Override
-//            public int getSpanSize(int position) {
-//                if (adapter.getItemViewType(position) == TYPE_PRODUCT) {
-//                    return 1;
-//                } else {
-//                    return 2;
-//                }
-//                //  return bottom_sheet_adapter.getItemViewType(position) == TYPE_LOAD ? 2 : 1;
-//            }
-//        });
-
-//        adapter.setLoadMoreListener(new ProductsAdapter.OnLoadMoreListener() {
-//            @Override
-//            public void onLoadMore() {
-//
-//                catProductRecyclerView.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        //  Log.d("Success", "Size:::: " + data.size());
-//                        int index = data.size();
-//                        //  TYPE_LOAD=data.size();
-//                     //   loadMoreDataFromApi(index);
-//                    }
-//                });
-//            }
-//        });
-
-       // catProductRecyclerView.setAdapter(adapter);
-//
-//        catProductRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                if (data.size() > 0) {
-//                    data.clear();
-//                    adapter.notifyDataChanged();
-//                    adapter.setMoreDataAvailable(true);
-//                }
-//                loadDataFromApi(0);
-//            }
-//        });
-//
-//        loadDataFromApi(0);
-//
-//
-//
-//    }
-
     private void loadDataFromApi(int index) {
         if (connectionManager.isConnectingToInternet()) {
             Call<ProductModel> Productscall = apiInitialize.getProductsListData(Const.PRODUCT_LIMIT_VALUE);
@@ -178,11 +178,11 @@ public class ProductListActivity extends AppCompatActivity {
                             catProductProgressBar.setVisibility(View.GONE);
                             catProductRecyclerView.setVisibility(View.VISIBLE);
                               data.addAll(productModel.getProduct());
-                          //  adapter.notifyDataChanged();
+                              adapter.notifyDataChanged();
 
-                            ProductsAdapter adapter = new ProductsAdapter(ProductListActivity.this,data);
-                            Log.w("Suuccess","asxfdf::: "+data.size());
-                            catProductRecyclerView.setAdapter(adapter);
+//                            ProductsAdapter adapter = new ProductsAdapter(ProductListActivity.this,data);
+//                            Log.w("Suuccess","asxfdf::: "+data.size());
+//                            catProductRecyclerView.setAdapter(adapter);
                         }
                         else {
                             Log.e("Error", "Failure Response");

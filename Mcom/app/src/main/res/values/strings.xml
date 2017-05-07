@@ -6,6 +6,7 @@
     <string name="copyrightsStr">Copyright © 2017.MindMadetech.com</string>
     <string name="no_data_str">No more data found</string>
     <string name="aboutus">ABOUT US</string>
+    <string name="timeoutError">Oops! Time out while connecting to server! Please try again</string>
     <string name="website">www.mindmadetech.com</string>
     <string name="description">MindMade is an IT Services provider of Onshore, Offshore &amp; Near shore technology solutions and services to enterprises &amp; technology companies across the globe. We work with some of the world\’s leading innovative ISVs and software-enabled businesses, ranging from startups to established industry leaders.
 Over years, MindMade has been partnering with loyal clients seeking leverage to our proven delivery methodology, as well as 24/7 access to the very best technical resources and development tools available anywhere.

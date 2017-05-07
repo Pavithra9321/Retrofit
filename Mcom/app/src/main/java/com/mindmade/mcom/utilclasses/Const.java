@@ -33,9 +33,14 @@ public class Const {
     public static final String PRODUCT_PRICE_KEY = "price";
     public static final String PRODUCT_OFF_PRICE_KEY = "offer_price";
     public static final String TYPE_KEY = "type";
-  public static final String PRODUCT_LIMIT_VALUE="4";
+  public static final String PRODUCT_LIMIT_VALUE="5";
 
-   
+//   Product Description
+public static final String PRODUCT_DESC_ARRAY_KEY = "product";
+public static final String PRODUCT_DESCRIPTION_URL = "products/10209534339.json";
+    public static final String PRODUCT_DESCRIPTION_ID = "products/10209534339.json";
+    public static final String PRODUCT_LIKE = "like";
+
 
     public static final String APP_NAME = "MCom";
     /*Tab Activity titles*/
