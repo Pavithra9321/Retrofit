@@ -22,7 +22,9 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.mindmade.mcom.R;
 import com.mindmade.mcom.activity.ProductDescriptionActivity;
+import com.mindmade.mcom.utilclasses.CartSQLiteHelper;
 import com.mindmade.mcom.utilclasses.Const;
+import com.mindmade.mcom.utilclasses.model.CartProduct;
 import com.mindmade.mcom.utilclasses.model.CategoryModel;
 import com.mindmade.mcom.utilclasses.model.ProductDescription;
 import com.mindmade.mcom.utilclasses.model.ProductModel;
@@ -33,7 +35,7 @@ import java.util.List;
 /**
  * Created by Mindmade technologies on 06-05-2017.
  */
-public class ProductsAdapter  extends RecyclerView.Adapter  {
+public class ProductsAdapter extends RecyclerView.Adapter {
     public final int TYPE_PRODUCT = 0;
     public final int TYPE_CATEGORY = 0;
     public final int TYPE_LOAD = 1;
@@ -41,10 +43,13 @@ public class ProductsAdapter  extends RecyclerView.Adapter  {
     private List<ProductModel.Products> data;
     OnLoadMoreListener loadMoreListener;
     boolean isLoading = false, isMoreDataAvailable = true;
-boolean like;
+    boolean like;
+    CartSQLiteHelper sqLiteHelper;
+
     public ProductsAdapter(Activity context, ArrayList<ProductModel.Products> passData) {
         mContext = context;
         data = passData;
+        sqLiteHelper = new CartSQLiteHelper(mContext);
     }
 
     @Override
@@ -62,34 +67,32 @@ boolean like;
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ProductsAdapter.ProductViewHolder) {
-          //  Log.w("Success", "Data::: " + data.get(position).getResult().get("src"));
+            //  Log.w("Success", "Data::: " + data.get(position).getResult().get("src"));
 
             Log.w("Success", "Data::: " + data.get(position).getName());
             Log.w("Success", "Data::: " + data.get(position).getId());
             ((ProductsAdapter.ProductViewHolder) holder).productNameTV.setText(data.get(position).getName());
-         ((ProductsAdapter.ProductViewHolder)holder).productOfferPriceTV.setText(data.get(position).getVaraiants().get(0).getPrice());
+            ((ProductsAdapter.ProductViewHolder) holder).productOfferPriceTV.setText(data.get(position).getVaraiants().get(0).getPrice());
 
             Glide.with(mContext).load(data.get(position).getImage().getSrc()).fitCenter().listener(new RequestListener<String, GlideDrawable>() {
-            @Override
-            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                ((ProductsAdapter.ProductViewHolder) holder).productAdapterProgressBar.setVisibility(View.GONE);
-                return false;
-            }
+                @Override
+                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    ((ProductsAdapter.ProductViewHolder) holder).productAdapterProgressBar.setVisibility(View.GONE);
+                    return false;
+                }
 
-            @Override
-            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                ((ProductsAdapter.ProductViewHolder) holder).productAdapterProgressBar.setVisibility(View.GONE);
-                return false;
-            }
-        }).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(((ProductsAdapter.ProductViewHolder) holder).productImageview);
+                @Override
+                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    ((ProductsAdapter.ProductViewHolder) holder).productAdapterProgressBar.setVisibility(View.GONE);
+                    return false;
+                }
+            }).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(((ProductsAdapter.ProductViewHolder) holder).productImageview);
 
-//            if (like==true) {
-//                ((ProductsAdapter.ProductViewHolder) holder).productlikeImage.setImageResource(R.drawable.like_gray);
-//                // likeTv++;
-//            } else {
-//                ((ProductsAdapter.ProductViewHolder) holder).productlikeImage.setImageResource(R.drawable.like_red);
-//                // likeTv--;
-//            }
+            if (data.get(position).isCartCheck()) {
+                ((ProductsAdapter.ProductViewHolder) holder).productlikeImage.setImageResource(R.drawable.like_red);
+            } else {
+                ((ProductsAdapter.ProductViewHolder) holder).productlikeImage.setImageResource(R.drawable.like_gray);
+            }
 
             if (position >= getItemCount() - 1 && isMoreDataAvailable && !isLoading && loadMoreListener != null) {
                 isLoading = true;
@@ -100,6 +103,7 @@ boolean like;
             }
         }
     }
+
     @Override
     public int getItemViewType(int position) {
 //        if (data.get(position).equals(Const.LATERST_TYPE_VALUE) || data.get(position).getType().equals(Const.CATEGORY_TYPE_VALUE)) {
@@ -125,6 +129,7 @@ boolean like;
     public boolean isLoading() {
         return isLoading;
     }
+
     @Override
     public int getItemCount() {
         return data.size();
@@ -143,7 +148,7 @@ boolean like;
         ImageView productImageview;
         TextView productNameTV, productOfferPriceTV, productActulPriceTV;
         LinearLayout bottomLayout;
-        ImageButton productlikeImage,productlikeImageRed;
+        ImageButton productlikeImage;
         ProgressBar productAdapterProgressBar;
 
 
@@ -156,31 +161,43 @@ boolean like;
             productActulPriceTV = (TextView) itemView.findViewById(R.id.product_adapter_actual_price_TV);
             bottomLayout = (LinearLayout) itemView.findViewById(R.id.product_adapter_bottom_layout);
             productAdapterProgressBar = (ProgressBar) itemView.findViewById(R.id.product_progressbar);
-            productlikeImage= (ImageButton) itemView.findViewById(R.id.likeImage);
-            productlikeImageRed= (ImageButton) itemView.findViewById(R.id.likeImageRed);
+            productlikeImage = (ImageButton) itemView.findViewById(R.id.likeImage);
+            // productlikeImageRed= (ImageButton) itemView.findViewById(R.id.likeImageRed);
 
             productImageview.setOnClickListener(this);
             productlikeImage.setOnClickListener(this);
-            productlikeImageRed.setOnClickListener(this);
+            // productlikeImageRed.setOnClickListener(this);
         }
 
 
         @Override
         public void onClick(View v) {
-            if (v == productImageview ) {
-                Log.d("Success","MMM"+data.get(getAdapterPosition() - 1).getId());
-               Intent nextIntent = new Intent(mContext, ProductDescriptionActivity.class);
-               //nextIntent.putExtra(Const.NAME_INTENT_KEY, data.get(getAdapterPosition() - 1).getName());
-                nextIntent.putExtra(Const.PRODUCT_ID_KEY, data.get(getAdapterPosition() - 1).getId());
-                mContext.startActivity(nextIntent);
-            }else if(v== productlikeImage) {
-                productlikeImageRed.setVisibility(View.VISIBLE);
-                productlikeImage.setVisibility(View.GONE);
+            if (v == productImageview) {
+                //  Log.d("Success", "MMM" + data.get(getAdapterPosition() - 1).getId());
+                /*Intent nextIntent = new Intent(mContext, ProductDescriptionActivity.class);
+                //nextIntent.putExtra(Const.NAME_INTENT_KEY, data.get(getAdapterPosition() - 1).getName());
+                nextIntent.putExtra(Const.PRODUCT_ID_KEY, data.get(getAdapterPosition()).getId());
+                mContext.startActivity(nextIntent);*/
+            } else if (v == productlikeImage) {
 
-            }
-            else if(v==productlikeImageRed){
-                productlikeImageRed.setVisibility(View.GONE);
-                productlikeImage.setVisibility(View.VISIBLE);
+                CartProduct cartProduct = new CartProduct();
+                cartProduct.setId(String.valueOf(data.get(getAdapterPosition()).getId()));
+                cartProduct.setName(data.get(getAdapterPosition()).getName());
+                cartProduct.setImg_url(data.get(getAdapterPosition()).getImage().getSrc());
+                cartProduct.setPrice(data.get(getAdapterPosition()).getVaraiants().get(0).getPrice());
+                cartProduct.setQty(1);
+                cartProduct.setTotal(String.valueOf(cartProduct.getQty() * Float.parseFloat(cartProduct.getPrice())));
+                Log.d("Success", "Clicked Like image:::: " + data.get(getAdapterPosition()).isCartCheck());
+
+                if (data.get(getAdapterPosition()).isCartCheck()) {
+                    //Log.d("Success", "Clicked Like image");
+                    sqLiteHelper.deleteCart(cartProduct);
+                    data.get(getAdapterPosition()).setCartCheck(false);
+                } else {
+                    sqLiteHelper.addToCart(cartProduct);
+                    data.get(getAdapterPosition()).setCartCheck(true);
+                }
+                notifyDataSetChanged();
             }
         }
     }

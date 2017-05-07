@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class Cart_Fragment extends Fragment {
     SwipeRefreshLayout cartSwipeRefreshLayout;
     NetworkConnectionManager connectionManager;
     List<CartProduct> data;
+    String count, price;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class Cart_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View cart = inflater.inflate(R.layout.cart__fragment, container, false);
-
+        Cart_Fragment fragment = new Cart_Fragment();
         CartSQLiteHelper cartHelper = new CartSQLiteHelper(getActivity());
         connectionManager = new NetworkConnectionManager(getActivity());
         cartRecyclerView = (RecyclerView) cart.findViewById(R.id.common_recyclerview);
@@ -58,15 +60,17 @@ public class Cart_Fragment extends Fragment {
         cartRecyclerView.setHasFixedSize(false);
         data = new ArrayList<>();
         data.addAll(cartHelper.getAllCartItems());
+
         if (connectionManager.isConnectingToInternet()) {
             if (data.size() > 0) {
-                CartAdapter adapter = new CartAdapter(getActivity(), data);
+                CartAdapter adapter = new CartAdapter(getActivity(), data, fragment);
                 cartRecyclerView.setAdapter(adapter);
                 cartToChechout.setVisibility(View.VISIBLE);
                 carttotalItems.setVisibility(View.VISIBLE);
                 carttotalPrice.setVisibility(View.VISIBLE);
-                carttotalItems.setText(Const.CART_ITEMS_KEY + data.size());
-                carttotalPrice.setText(Const.CART_TOTAL_KEY);
+                cartRecyclerView.setVisibility(View.VISIBLE);
+                cartProgressbar.setVisibility(View.GONE);
+                updatePriceAndCount(String.valueOf(data.size()), cartHelper.getTotalPrice());
             } else {
                 cartRecyclerView.setVisibility(View.GONE);
                 cartProgressbar.setVisibility(View.GONE);
@@ -88,5 +92,42 @@ public class Cart_Fragment extends Fragment {
         return cart;
     }
 
+    public void updatePriceAndCount(String count, String price) {
+        Log.d("Success", "Count::: " + count);
+        Log.d("Success", "Price:::" + price);
+        this.count = count;
+        this.price = price;
+
+       /* if (count.equals("0")||count.equals("")){
+            cartRecyclerView.setVisibility(View.GONE);
+            cartProgressbar.setVisibility(View.GONE);
+            cartNodataTV.setVisibility(View.VISIBLE);
+            cartNodataTV.setText("No data found");
+            cartToChechout.setVisibility(View.GONE);
+            carttotalItems.setVisibility(View.GONE);
+            carttotalPrice.setVisibility(View.GONE);
+        }else {
+            carttotalItems.setText(String.valueOf(Const.CART_ITEMS_KEY + count));
+            carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + price));
+        }*/
+        // carttotalItems.setText(String.valueOf(Const.CART_ITEMS_KEY + count));
+        //  carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + price));
+        updateUI();
+    }
+
+    private void updateUI() {
+        if (count.equals("0") || count.equals("")) {
+            cartRecyclerView.setVisibility(View.GONE);
+            cartProgressbar.setVisibility(View.GONE);
+            cartNodataTV.setVisibility(View.VISIBLE);
+            cartNodataTV.setText("No data found");
+            cartToChechout.setVisibility(View.GONE);
+            carttotalItems.setVisibility(View.GONE);
+            carttotalPrice.setVisibility(View.GONE);
+        } else {
+            carttotalItems.setText(String.valueOf(Const.CART_ITEMS_KEY + count));
+            carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + price));
+        }
+    }
 
 }
