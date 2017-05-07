@@ -59,8 +59,8 @@ public class CategoriesFragment extends Fragment {
 
         connectionManager = new NetworkConnectionManager(getActivity());
         sessionManger = new PrefManager(getActivity());
-        apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE,Const.PASSWORD_VALUE);
-        data = new ArrayList<CategoryModel.Category>();
+        apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE, Const.PASSWORD_VALUE);
+
         categoryRecyclerView = (RecyclerView) categories.findViewById(R.id.common_recyclerview);
         categoryNodataTV = (TextView) categories.findViewById(R.id.common_nodata_TV);
         categoryProgressbar = (ProgressBar) categories.findViewById(R.id.common_progressbar);
@@ -105,20 +105,19 @@ public class CategoriesFragment extends Fragment {
                             categoryNodataTV.setVisibility(View.GONE);
 
                             CategoryModel categoryModel = response.body();
-                           /* if (categoryModel > 0) {
-                                data = new ArrayList<CategoryModel>();
-                                data.add(categoryModel);
-                                CategoryAdapter adapter = new CategoryAdapter(getActivity(), data);
+                            if (categoryModel.getCategoryList().size() > 0) {
+                                data = new ArrayList<CategoryModel.Category>();
+                                data.addAll(categoryModel.getCategoryList());
+
+                                CategoryAdapter adapter = new CategoryAdapter(activity, data);
+                                Log.w("Suuccess", "asxfdf::: " + data.size());
                                 categoryRecyclerView.setAdapter(adapter);
                             } else {
-
-                            }*/
-
-                            data.addAll(categoryModel.getCategoryList());
-
-                            CategoryAdapter adapter = new CategoryAdapter(activity, data);
-                            Log.w("Suuccess","asxfdf::: "+data.size());
-                            categoryRecyclerView.setAdapter(adapter);
+                                categoryRecyclerView.setVisibility(View.GONE);
+                                categoryProgressbar.setVisibility(View.GONE);
+                                categoryNodataTV.setVisibility(View.VISIBLE);
+                                categoryNodataTV.setText("No data found");
+                            }
                         } else {
                             categoryRecyclerView.setVisibility(View.GONE);
                             categoryProgressbar.setVisibility(View.GONE);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.mindmade.mcom.R;
 import com.mindmade.mcom.utilclasses.model.Products;
+import com.mindmade.mcom.utilclasses.model.SearchModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +22,14 @@ import java.util.List;
 
 public class SearchAdapter  extends BaseAdapter {
 
-    private List<Products.product> data;
+    private List<SearchModel.Search> data;
 
     private String[] typeAheadData;
 
     LayoutInflater inflater;
     Context mContext;
 
-    public SearchAdapter(Context context, List<Products.product> passData) {
+    public SearchAdapter(Context context, List<SearchModel.Search> passData) {
         mContext=context;
         inflater = LayoutInflater.from(mContext);
         data = passData;

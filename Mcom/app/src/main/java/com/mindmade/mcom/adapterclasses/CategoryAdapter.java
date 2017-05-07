@@ -18,6 +18,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.mindmade.mcom.R;
+import com.mindmade.mcom.activity.ProductListActivity;
 import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.model.CategoryModel;
 
@@ -96,6 +97,9 @@ public class CategoryAdapter extends RecyclerView.Adapter {
                 nextIntent.putExtra(Const.NAME_INTENT_KEY, data.get(getAdapterPosition() - 1).getName());
                 nextIntent.putExtra(Const.ID_INTENT_KEY, data.get(getAdapterPosition() - 1).getId());
                 mContext.startActivity(nextIntent);*/
+                Intent nextIntent = new Intent(mContext, ProductListActivity.class);
+                nextIntent.putExtra(Const.ID_INTENT_KEY, data.get(getAdapterPosition()).getId());
+                mContext.startActivity(nextIntent);
             }
         }
     }

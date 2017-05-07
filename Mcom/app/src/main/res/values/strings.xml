@@ -4,9 +4,19 @@
     <string name="hint_prompt">Speak an item name or number</string>
     <!--Splash Activity-->
     <string name="copyrightsStr">Copyright © 2017.MindMadetech.com</string>
+    <string name="no_data_str">No more data found</string>
     <string name="aboutus">ABOUT US</string>
+    <string name="timeoutError">Oops! Time out while connecting to server! Please try again</string>
     <string name="website">www.mindmadetech.com</string>
     <string name="description">MindMade is an IT Services provider of Onshore, Offshore &amp; Near shore technology solutions and services to enterprises &amp; technology companies across the globe. We work with some of the world\’s leading innovative ISVs and software-enabled businesses, ranging from startups to established industry leaders.
 Over years, MindMade has been partnering with loyal clients seeking leverage to our proven delivery methodology, as well as 24/7 access to the very best technical resources and development tools available anywhere.
 We provide complete Software Development Life Cycle, ranging from new product development and product advancement to product migration, re-engineering, sustenance and support. By leveraging our experience in product engineering, we bring products to market faster, with high quality and reduced costs.</string>
+
+
+    <!--Cart Activity-->
+    <string name="categoryStr">Category</string>
+    <string name="add_to_cart_Str">Add to cart</string>
+    <string name="continue_checkout_str">Continue to Checkout</string>
+
+
 </resources>
