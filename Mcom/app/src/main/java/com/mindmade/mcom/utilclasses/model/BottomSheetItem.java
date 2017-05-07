@@ -6,10 +6,14 @@ public class BottomSheetItem {
 
     private String mTitle;
     private int mId;
+    private String mKey;
 
-    public BottomSheetItem(String title, int id) {
+
+
+    public BottomSheetItem(String title, int id,String key) {
         mTitle = title;
         mId=id;
+        mKey=key;
     }
 
     public int getmId() {
@@ -20,4 +24,7 @@ public class BottomSheetItem {
         return mTitle;
     }
 
+    public String getmKey() {
+        return mKey;
+    }
 }

@@ -352,11 +352,12 @@ public class ProductListActivity extends AppCompatActivity {
                     //  sort=connectionManager.urlencoder(sort);
                     Log.w("Success", "Sort Key::: " + sort);
                     mBottomSheetDialog.dismiss();
-                    /*if (data.size() > 0) {
+                    if (data.size() > 0) {
                         data.clear();
-                        adapter.notifyDataChanged();
-                        adapter.setMoreDataAvailable(true);
-                    }*/
+                   //     adapter.notifyDataSetChanged();
+                       // adapter.notifyDataChanged();
+                       // adapter.setMoreDataAvailable(true);
+                    }
                     catProductProgressBar.setVisibility(View.VISIBLE);
                     catProductRecyclerView.setVisibility(View.GONE);
                     loadDataFromApi(0);
@@ -378,7 +379,7 @@ public class ProductListActivity extends AppCompatActivity {
     public List<BottomSheetItem> createItems() {
         ArrayList<BottomSheetItem> items = new ArrayList<>();
         for (int i = 0; i < Const.SORTBY_ARRAY.length; i++) {
-            items.add(new BottomSheetItem(Const.SORTBY_ARRAY[i], i));
+            items.add(new BottomSheetItem(Const.SORTBY_ARRAY[i], i, Const.SORTBY_ARRAY_KEY[i]));
         }
         return items;
     }

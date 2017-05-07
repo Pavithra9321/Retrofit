@@ -81,6 +81,7 @@ public class Const {
 
 
     public static final String[] SORTBY_ARRAY = {"ASC", "DESC"};
+    public static final String[] SORTBY_ARRAY_KEY = {"Sort - Ascending", "Sort - Descending"};
 
   /*About us**/
   public static final String FACEBOOK="https://www.facebook.com/mindmadetech/";
