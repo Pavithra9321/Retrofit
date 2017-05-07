@@ -177,7 +177,7 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
                         Glide
                                 .with(ProductDescriptionActivity.this)
                                 .load(descriptionDataList.getProductDesc().getImage().getSrc())
-                                .placeholder(R.drawable.banner_men)
+                                .placeholder(R.drawable.placeholder)
                                 .crossFade()
                                 .dontAnimate()
                                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)

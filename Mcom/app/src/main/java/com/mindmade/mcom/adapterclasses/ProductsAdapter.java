@@ -71,23 +71,21 @@ public class ProductsAdapter extends RecyclerView.Adapter {
 
             Log.w("Success", "Data::: " + data.get(position).getName());
             Log.w("Success", "Data::: " + data.get(position).getId());
-            Log.d("success","DDD"+data.get(position).getImage().getProduct_id());
+            Log.d("success", "DDD" + data.get(position).getImage().getProduct_id());
             ((ProductsAdapter.ProductViewHolder) holder).productNameTV.setText(data.get(position).getName());
             ((ProductsAdapter.ProductViewHolder) holder).productOfferPriceTV.setText(data.get(position).getVaraiants().get(0).getPrice());
 
-            Glide.with(mContext).load(data.get(position).getImage().getSrc()).fitCenter().listener(new RequestListener<String, GlideDrawable>() {
-                @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                    ((ProductsAdapter.ProductViewHolder) holder).productAdapterProgressBar.setVisibility(View.GONE);
-                    return false;
-                }
+        //    Glide.with(mContext).load(data.get(position).getImage().getSrc()).diskCacheStrategy(DiskCacheStrategy.SOURCE).placeholder(R.drawable.placeholder).into(((ProductsAdapter.ProductViewHolder) holder).productImageview);
 
-                @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                    ((ProductsAdapter.ProductViewHolder) holder).productAdapterProgressBar.setVisibility(View.GONE);
-                    return false;
-                }
-            }).diskCacheStrategy(DiskCacheStrategy.SOURCE).placeholder(R.drawable.placeholder).into(((ProductsAdapter.ProductViewHolder) holder).productImageview);
+            Glide
+                    .with(mContext)
+                    .load(data.get(position).getImage().getSrc())
+                    .placeholder(R.drawable.placeholder)
+                    .crossFade()
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .placeholder(R.drawable.placeholder)
+                    .into(((ProductsAdapter.ProductViewHolder) holder).productImageview);
 
             if (data.get(position).isCartCheck()) {
                 ((ProductsAdapter.ProductViewHolder) holder).productlikeImage.setImageResource(R.drawable.like_red);
@@ -176,9 +174,9 @@ public class ProductsAdapter extends RecyclerView.Adapter {
             if (v == productImageview) {
                 Log.d("Success", "MMM" + data.get(getAdapterPosition()).isCartCheck());
                 Intent nextIntent = new Intent(mContext, ProductDescriptionActivity.class);
-                nextIntent.putExtra(Const.PRODUCT_NAME, String.valueOf(data.get(getAdapterPosition()).getName())) ;
-                nextIntent.putExtra(Const.PRODUCT_LIKES, String.valueOf(data.get(getAdapterPosition()).isCartCheck())) ;
-                 nextIntent.putExtra(Const.PRODUCT_ID_KEY, String.valueOf(data.get(getAdapterPosition()).getId()));
+                nextIntent.putExtra(Const.PRODUCT_NAME, String.valueOf(data.get(getAdapterPosition()).getName()));
+                nextIntent.putExtra(Const.PRODUCT_LIKES, String.valueOf(data.get(getAdapterPosition()).isCartCheck()));
+                nextIntent.putExtra(Const.PRODUCT_ID_KEY, String.valueOf(data.get(getAdapterPosition()).getId()));
                 mContext.startActivity(nextIntent);
             } else if (v == productlikeImage) {
 

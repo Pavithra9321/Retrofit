@@ -68,6 +68,13 @@ public class Cart_Fragment extends Fragment {
         data = new ArrayList<>();
         data.addAll(cartHelper.getAllCartItems());
 
+        cartSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                cartSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         if (connectionManager.isConnectingToInternet()) {
             if (data.size() > 0) {
                 CartAdapter adapter = new CartAdapter(getActivity(), data);
