@@ -1,32 +1,41 @@
 package com.mindmade.mcom.activity;
 
+import android.content.DialogInterface;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mindmade.mcom.R;
 
+import com.mindmade.mcom.adapterclasses.BottomSheetAdapter;
 import com.mindmade.mcom.adapterclasses.ProductsAdapter;
 import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.NetworkConnectionManager;
 import com.mindmade.mcom.utilclasses.PrefManager;
 import com.mindmade.mcom.utilclasses.api.AllApi;
-
+import com.mindmade.mcom.utilclasses.model.BottomSheetItem;
+import com.mindmade.mcom.utilclasses.model.CategoryModel;
 import com.mindmade.mcom.utilclasses.model.ProductModel;
 import com.mindmade.mcom.utilclasses.network.ServiceGenerator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,6 +64,10 @@ public class ProductListActivity extends AppCompatActivity {
     String categoryName;
     int categoryID;
     String sort, filters;
+
+
+    BottomSheetBehavior behavior;
+    private BottomSheetDialog mBottomSheetDialog;
 
 
     @Override
@@ -101,8 +114,36 @@ public class ProductListActivity extends AppCompatActivity {
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         //final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         catProductRecyclerView.setLayoutManager(layoutManager);
+
+
+        View bottomSheet = findViewById(R.id.bottom_sheet);
+        behavior = BottomSheetBehavior.from(bottomSheet);
+
+
         loadDataFromApi(0);
-        adapter = new ProductsAdapter(this, data);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.sort_by_menu, menu);
+
+        MenuItem item = menu.findItem(R.id.action_sort_by);
+        // searchView.setMenuItem(item);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sort_by:
+                showBottomSheetDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
         //loadingView = LayoutInflater.from(getActivity()).inflate(R.layout.bottom_loading, latestRecyclerView, false);
 
@@ -162,13 +203,13 @@ public class ProductListActivity extends AppCompatActivity {
             Log.w("Success", "URL::: " + Productscall.request().url().toString());
 
             Productscall.enqueue(new Callback<ProductModel>() {
-                                       @Override
-                                       public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
-                                           Log.w("Success", "Response::: " + new Gson().toJson(response.body()));
-                                           Log.w("Success", "Response::: " + new Gson().toJson(response.code()));
-                                           Log.w("Success", "Response::: " + new Gson().toJson(response.message()));
-                                           Log.w("Success", "Response::: " + new Gson().toJson(response.errorBody()));
-                                           Log.w("Success", "Response::: " + new Gson().toJson(response.headers()));
+                @Override
+                public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
+                    Log.w("Success", "Response::: " + new Gson().toJson(response.body()));
+                    Log.w("Success", "Response::: " + new Gson().toJson(response.code()));
+                    Log.w("Success", "Response::: " + new Gson().toJson(response.message()));
+                    Log.w("Success", "Response::: " + new Gson().toJson(response.errorBody()));
+                    Log.w("Success", "Response::: " + new Gson().toJson(response.headers()));
 
                     catProductRefreshLayout.setRefreshing(false);
                     try {
@@ -177,14 +218,13 @@ public class ProductListActivity extends AppCompatActivity {
                             ProductModel productModel = response.body();
                             catProductProgressBar.setVisibility(View.GONE);
                             catProductRecyclerView.setVisibility(View.VISIBLE);
-                              data.addAll(productModel.getProduct());
-                              adapter.notifyDataChanged();
+                            data.addAll(productModel.getProduct());
+                            //  adapter.notifyDataChanged();
 
-//                            ProductsAdapter adapter = new ProductsAdapter(ProductListActivity.this,data);
-//                            Log.w("Suuccess","asxfdf::: "+data.size());
-//                            catProductRecyclerView.setAdapter(adapter);
-                        }
-                        else {
+                            ProductsAdapter adapter = new ProductsAdapter(ProductListActivity.this, data);
+                            Log.w("Suuccess", "asxfdf::: " + data.size());
+                            catProductRecyclerView.setAdapter(adapter);
+                        } else {
                             Log.e("Error", "Failure Response");
                         }
                     } catch (Exception e) {
@@ -193,15 +233,15 @@ public class ProductListActivity extends AppCompatActivity {
                 }
 
 
-                  @Override
+                @Override
                 public void onFailure(Call<ProductModel> call, Throwable t) {
                     Log.e("Failure", " Response Error " + t.getMessage());
                 }
             });
         } else {
-           // Toast.makeText(CategoryProductsActivity.this, "" + getString(R.string.netUnavailable), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(CategoryProductsActivity.this, "" + getString(R.string.netUnavailable), Toast.LENGTH_SHORT).show();
         }
-        }
+    }
 
 //    private void loadMoreDataFromApi(int index) {
 //        if (connectionManager.isConnectingToInternet()) {
@@ -272,6 +312,8 @@ public class ProductListActivity extends AppCompatActivity {
 //        }
 //    }
 
-
+    private void showBottomSheetDialog() {
+        if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
