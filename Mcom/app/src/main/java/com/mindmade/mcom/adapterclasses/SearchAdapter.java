@@ -1,6 +1,7 @@
 package com.mindmade.mcom.adapterclasses;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.mindmade.mcom.R;
+import com.mindmade.mcom.activity.ProductDescriptionActivity;
+import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.model.Products;
 import com.mindmade.mcom.utilclasses.model.SearchModel;
 
@@ -52,7 +55,7 @@ public class SearchAdapter  extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
@@ -69,6 +72,17 @@ public class SearchAdapter  extends BaseAdapter {
         mViewHolder.textView.setText(data.get(position).getName());
         mViewHolder.textView.setPadding(2,2,2,2);
         mViewHolder.textView.setTextColor(ContextCompat.getColor(mContext, R.color.searchTextcolor));
+
+        mViewHolder.textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Success", "MMM" + data.get(position).getId());
+                Intent nextIntent = new Intent(mContext, ProductDescriptionActivity.class);
+                nextIntent.putExtra(Const.PRODUCT_NAME, String.valueOf(data.get(position).getName())) ;
+                nextIntent.putExtra(Const.PRODUCT_ID_KEY, String.valueOf(data.get(position).getId()));
+                mContext.startActivity(nextIntent);
+            }
+        });
 
         return convertView;
     }
