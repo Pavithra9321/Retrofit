@@ -71,6 +71,7 @@ public class ProductsAdapter extends RecyclerView.Adapter {
 
             Log.w("Success", "Data::: " + data.get(position).getName());
             Log.w("Success", "Data::: " + data.get(position).getId());
+            Log.d("success","DDD"+data.get(position).getImage().getProduct_id());
             ((ProductsAdapter.ProductViewHolder) holder).productNameTV.setText(data.get(position).getName());
             ((ProductsAdapter.ProductViewHolder) holder).productOfferPriceTV.setText(data.get(position).getVaraiants().get(0).getPrice());
 
@@ -201,6 +202,7 @@ public class ProductsAdapter extends RecyclerView.Adapter {
             }
         }
     }
+
 
     static class LoadHolder extends RecyclerView.ViewHolder {
         public LoadHolder(View itemView) {

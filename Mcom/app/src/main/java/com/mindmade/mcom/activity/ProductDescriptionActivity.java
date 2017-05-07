@@ -34,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.mindmade.mcom.R.id.product_detail_name_TV;
+
 public class ProductDescriptionActivity extends AppCompatActivity {
     ImageView productImageView;
     ProgressBar imageloadingProgressbar, productdetailProgressBar;
@@ -48,14 +50,24 @@ public class ProductDescriptionActivity extends AppCompatActivity {
     AllApi apiInitialize;
     String productName;
     String UserID="10209534339";
-  JSONObject descriptionDataList;
+      ProductDescription descriptionDataList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_description);
-        String productid="10209534339.json";
         /*Toolbar Start*/
+
+
+
+        int productID = getIntent().getIntExtra(Const.PRODUCT_ID_KEY,-1);
+        String package_id = getIntent().getStringExtra("package_id");
+        Log.d("success","MMM3"+productID);
+        // Log.d("success","MMM2"+product);
+        connectionManager = new NetworkConnectionManager(this);
+        sessionManager = new PrefManager(this);
+        apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE, Const.PASSWORD_VALUE);
         toolbar = (Toolbar) findViewById(R.id.product_detail_toolbar);
+
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -75,15 +87,13 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         });
         /*Toolbar End*/
 
-        connectionManager = new NetworkConnectionManager(this);
-        sessionManager = new PrefManager(this);
-        apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE, Const.PASSWORD_VALUE);
+
 
         productDetailScroolview = (ScrollView) findViewById(R.id.product_detail_scrollview);
         productImageView = (ImageView) findViewById(R.id.product_detail_imageview);
         productdetailProgressBar = (ProgressBar) findViewById(R.id.product_detail_common_progressbar);
         imageloadingProgressbar = (ProgressBar) findViewById(R.id.product_detail_image_progressbar);
-        producttitleTV = (TextView) findViewById(R.id.product_detail_name_TV);
+        producttitleTV = (TextView) findViewById(product_detail_name_TV);
         productPriceTV = (TextView) findViewById(R.id.product_detail_actual_price_TV);
         productOfferPriceTV = (TextView) findViewById(R.id.product_detail_offer_price_TV);
         productDescriptionTV = (TextView) findViewById(R.id.product_detail_content_TV);
@@ -123,14 +133,45 @@ public class ProductDescriptionActivity extends AppCompatActivity {
                 try {
                     if (response.isSuccessful()) {
 
-                       ProductDescription descriptionDataList = response.body();
-                        Log.d("Success","AAA"+descriptionDataList.getProduct());
+                        descriptionDataList = response.body();
+                        Log.d("Success","AAA"+descriptionDataList.getProductDesc().getId());
+
+                        Long id =descriptionDataList.getProductDesc().getId();
+                        String  title =descriptionDataList.getProductDesc().getName();
+                        String offerPrice=descriptionDataList.getProductDesc().getVaraiants().get(0).getPrice();
+                        String image=descriptionDataList.getProductDesc().getImage().getSrc();
+                        //String actualPrice=descriptionDataList.getProductDesc().getVaraiants().get(0).
+
+                        Log.d("Success","AAA"+id);
+                        Log.d("Success","AAA"+title);
+                     //   Log.d("Success","AAA"+actualPrice);
+                        Log.d("Success","AAA"+image);
 
 
 
-//                        productdetailProgressBar.setVisibility(View.GONE);
-//                        productDetailScroolview.setVisibility(View.VISIBLE);
-//                            product_detailRefreshLayout.setRefreshing(false);
+
+
+
+
+                        productdetailProgressBar.setVisibility(View.GONE);
+                        productDetailScroolview.setVisibility(View.VISIBLE);
+                        product_detailRefreshLayout.setRefreshing(false);
+                        producttitleTV.setText(descriptionDataList.getProductDesc().getName());
+                        productOfferPriceTV.setText(descriptionDataList.getProductDesc().getVaraiants().get(0).getPrice());
+                        productPriceTV.setText(descriptionDataList.getProductDesc().getVaraiants().get(0).getPrice());
+                        productPriceTV.setPaintFlags(productPriceTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        productDescriptionTV.setText(descriptionDataList.getProductDesc().getName());
+                        Glide
+                                .with(ProductDescriptionActivity.this)
+                                .load(descriptionDataList.getProductDesc().getImage().getSrc())
+                                .placeholder(R.drawable.banner_men)
+                                .crossFade()
+                                .dontAnimate()
+                                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                .into(productImageView);
+
+
+
 //                            descriptionDataList = detailModel.getProduct();
 //                            if (descriptionDataList.size() > 0) {
 //                                producttitleTV.setText(descriptionDataList.get(descriptionDataList.size() - 1).getName());
@@ -139,24 +180,14 @@ public class ProductDescriptionActivity extends AppCompatActivity {
 //                                productPriceTV.setPaintFlags(productPriceTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 //                                productOfferPriceTV.setText(getString(R.string.rs_symbol) + " " + descriptionDataList.get(descriptionDataList.size() - 1).getOfferPrice());
 //
-//                                Glide
-//                                        .with(ProductDescriptionActivity.this)
-//                                        .load(descriptionDataList.get(descriptionDataList.size() - 1).getImageurl())
-//                                        .placeholder(R.mipmap.ic_grasp_lancher)
-//                                        .crossFade()
-//                                        .dontAnimate()
-//                                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                                        .into(productImageView);
-//                                productDescriptionTV.setText(descriptionDataList.get(descriptionDataList.size() - 1).getDescription());
-////
-//                            ProductsAdapter adapter = new ProductsAdapter(ProductListActivity.this,data);
-//                            Log.w("Suuccess","asxfdf::: "+data.size());
-//                            catProductRecyclerView.setAdapter(adapter);
 
-//                            } else {
-//                                Log.e("Error", "Failure Response");
-//                            }
-                    }
+////
+
+
+                            } else {
+                                Log.e("Error", "Failure Response");
+                            }
+
 
                 } catch (Exception e) {
                     Log.e("Exception", "" + e);
