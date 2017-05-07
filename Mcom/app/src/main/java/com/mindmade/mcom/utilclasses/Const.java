@@ -77,7 +77,7 @@ public class Const {
     public static final String CART_ITEMS_KEY = "Items: ";
 
 
-    public static final String[] SORTBY_ARRAY = {"Populartity", "New", "Price : Low - High", "Price : High - Low"};
+    public static final String[] SORTBY_ARRAY = {"ASC", "DESC"};
 
   /*About us**/
   public static final String FACEBOOK="https://www.facebook.com/mindmadetech/";

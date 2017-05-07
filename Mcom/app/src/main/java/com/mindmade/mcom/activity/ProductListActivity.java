@@ -348,7 +348,7 @@ public class ProductListActivity extends AppCompatActivity {
             public void onItemClick(BottomSheetItem item, int pos) {
                 if (mBottomSheetDialog != null) {
                     // Toast.makeText(CategoryProductsActivity.this, "Clicked ::: " + pos, Toast.LENGTH_SHORT).show();
-                    sort = String.valueOf(item.getmId());
+                    sort = Const.TITLE_KEY+String.valueOf(item.getTitle());
                     mBottomSheetDialog.dismiss();
                     if (data.size() > 0) {
                         data.clear();

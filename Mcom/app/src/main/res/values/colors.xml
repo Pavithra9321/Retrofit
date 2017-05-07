@@ -11,4 +11,7 @@
     <color name="colorproductText">#666666</color>
      <color name="coloryellow">#FFFF00</color>
     <color name="colorgreen">#599301</color>
+
+    <color name="qtyTextcolor">#999999</color>
+    <color name="borderColor">#BD666666</color>
 </resources>
