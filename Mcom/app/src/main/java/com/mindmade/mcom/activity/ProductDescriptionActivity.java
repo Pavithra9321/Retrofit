@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -16,11 +18,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.mindmade.mcom.R;
+import com.mindmade.mcom.adapterclasses.ProductsAdapter;
+import com.mindmade.mcom.utilclasses.CartSQLiteHelper;
 import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.NetworkConnectionManager;
 import com.mindmade.mcom.utilclasses.PrefManager;
 import com.mindmade.mcom.utilclasses.api.AllApi;
+import com.mindmade.mcom.utilclasses.model.CartProduct;
 import com.mindmade.mcom.utilclasses.model.ProductDescription;
+import com.mindmade.mcom.utilclasses.model.ProductModel;
 import com.mindmade.mcom.utilclasses.network.ServiceGenerator;
 
 import org.apache.commons.lang.StringUtils;
@@ -31,14 +37,16 @@ import retrofit2.Response;
 
 import static com.mindmade.mcom.R.id.product_detail_name_TV;
 
-public class ProductDescriptionActivity extends AppCompatActivity {
+public class ProductDescriptionActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView productImageView;
     ProgressBar imageloadingProgressbar, productdetailProgressBar;
     TextView producttitleTV, productPriceTV, productOfferPriceTV, productDescriptionTV, productNodataTV;
     ScrollView productDetailScroolview;
     Toolbar toolbar;
     TextView toolbarTitleTV;
+    ImageButton desclikeImage;
     SwipeRefreshLayout product_detailRefreshLayout;
+    Button cart_button;
 
     NetworkConnectionManager connectionManager;
     PrefManager sessionManager;
@@ -46,6 +54,8 @@ public class ProductDescriptionActivity extends AppCompatActivity {
     String productName;
     String UserID;
       ProductDescription descriptionDataList;
+    CartSQLiteHelper sqLiteHelper;
+    ProductModel productModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,10 +104,16 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         productOfferPriceTV = (TextView) findViewById(R.id.product_detail_offer_price_TV);
         productDescriptionTV = (TextView) findViewById(R.id.product_detail_content_TV);
         productNodataTV = (TextView) findViewById(R.id.product_detail_nodata_TV);
+        desclikeImage= (ImageButton) findViewById(R.id.desclikeImage);
+        cart_button= (Button) findViewById(R.id.cart_button);
         product_detailRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.product_detail_refresh_layout);
         product_detailRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorPrimary);
         loadDataFromApi(UserID);
 
+
+
+        desclikeImage.setOnClickListener(this);
+        cart_button.setOnClickListener(this);
         product_detailRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -138,7 +154,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
                         String image=descriptionDataList.getProductDesc().getImage().getSrc();
 
                         Log.d("Success","AAA"+id);
-                        Log.d("Success","AAA"+title);
+                        Log.d("Success","AAACart"+descriptionDataList.getProductDesc().isCartCheck());
                      //   Log.d("Success","AAA"+actualPrice);
                         Log.d("Success","AAA"+image);
 
@@ -166,6 +182,13 @@ public class ProductDescriptionActivity extends AppCompatActivity {
                                 .into(productImageView);
 
 
+                        if (descriptionDataList.getProductDesc().isCartCheck()==true) {
+                            desclikeImage.setImageResource(R.drawable.like_red);
+                            Log.d("Success","AAACartRED");
+                        } else {
+                            desclikeImage.setImageResource(R.drawable.like_gray);
+                            Log.d("Success","AAACartGrey");
+                        }
 
 //                            descriptionDataList = detailModel.getProduct();
 //                            if (descriptionDataList.size() > 0) {
@@ -198,4 +221,52 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         // Toast.makeText(CategoryProductsActivity.this, "" + getString(R.string.netUnavailable), Toast.LENGTH_SHORT).show();
     }
 }
+
+    @Override
+    public void onClick(View v) {
+        if(v==desclikeImage){
+
+            CartProduct cartProduct = new CartProduct();
+            cartProduct.setId(String.valueOf(descriptionDataList.getProductDesc().getId()));
+            cartProduct.setName(descriptionDataList.getProductDesc().getName());
+            cartProduct.setImg_url(descriptionDataList.getProductDesc().getImage().getSrc());
+            cartProduct.setPrice(descriptionDataList.getProductDesc().getVaraiants().get(0).getPrice());
+            cartProduct.setQty(1);
+            cartProduct.setTotal(String.valueOf(cartProduct.getQty() * Float.parseFloat(cartProduct.getPrice())));
+           // Log.d("Success", "Clicked Like image:::: " + data.get(getAdapterPosition()).isCartCheck());
+
+            if (descriptionDataList.getProductDesc().isCartCheck()) {
+                Log.d("Success", "Clicked Like image");
+                sqLiteHelper.deleteCart(cartProduct);
+                descriptionDataList.getProductDesc().setCartCheck(false);
+            } else {
+                sqLiteHelper.addToCart(cartProduct);
+                descriptionDataList.getProductDesc().setCartCheck(true);
+            }
+
+        }else if(v==cart_button){
+            CartProduct cartProduct = new CartProduct();
+            cartProduct.setId(String.valueOf(descriptionDataList.getProductDesc().getId()));
+            cartProduct.setName(descriptionDataList.getProductDesc().getName());
+            cartProduct.setImg_url(descriptionDataList.getProductDesc().getImage().getSrc());
+            cartProduct.setPrice(descriptionDataList.getProductDesc().getVaraiants().get(0).getPrice());
+            cartProduct.setQty(1);
+            cartProduct.setTotal(String.valueOf(cartProduct.getQty() * Float.parseFloat(cartProduct.getPrice())));
+            // Log.d("Success", "Clicked Like image:::: " + data.get(getAdapterPosition()).isCartCheck());
+
+            if (descriptionDataList.getProductDesc().isCartCheck()) {
+                Log.d("Success", "Clicked Like image");
+                sqLiteHelper.deleteCart(cartProduct);
+                descriptionDataList.getProductDesc().setCartCheck(false);
+            } else {
+                sqLiteHelper.addToCart(cartProduct);
+                descriptionDataList.getProductDesc().setCartCheck(true);
+            }
+
+
+        }
+
+
+        }
+
 }
