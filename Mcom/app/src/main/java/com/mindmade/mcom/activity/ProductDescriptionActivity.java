@@ -106,14 +106,14 @@ public class ProductDescriptionActivity extends AppCompatActivity {
 //                if (descriptionDataList.size() > 0) {
 //                    descriptionDataList.clear();
 //                }
-          // loadDataFromApi(productid);
+           loadDataFromApi(UserID);
             }
         });
     }
 
   private void loadDataFromApi(String userID) {
     if (connectionManager.isConnectingToInternet()) {
-        Call<ProductDescription> Productscall = apiInitialize.getProductDescriptiondata(UserID);
+        Call<ProductDescription> Productscall = apiInitialize.getProductDescriptiondata(userID);
         Log.w("Success", "URL::: " + Productscall.request().url().toString());
 
         Productscall.enqueue(new Callback<ProductDescription>() {

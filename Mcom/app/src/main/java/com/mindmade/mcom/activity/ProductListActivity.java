@@ -354,7 +354,8 @@ public class ProductListActivity extends AppCompatActivity {
                     mBottomSheetDialog.dismiss();
                     if (data.size() > 0) {
                         data.clear();
-                        adapter.notifyDataChanged();
+                   //     adapter.notifyDataSetChanged();
+                       // adapter.notifyDataChanged();
                        // adapter.setMoreDataAvailable(true);
                     }
                     catProductProgressBar.setVisibility(View.VISIBLE);
