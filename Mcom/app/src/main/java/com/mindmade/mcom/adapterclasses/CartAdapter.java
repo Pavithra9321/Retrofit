@@ -48,7 +48,7 @@ public class CartAdapter extends RecyclerView.Adapter {
             ((CartViewHolder) holder).cartProductName.setText(data.get(position).getName());
             ((CartViewHolder) holder).cartProductPrice.setText(data.get(position).getPrice());
             ((CartViewHolder) holder).cartProductQuantity.setText(data.get(position).getQty());
-            Glide.with(mContext).load(data.get(position).getImg_url()).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
+            Glide.with(mContext).load(data.get(position).getImg_url()).fitCenter().listener(new RequestListener<String, GlideDrawable>() {
                 @Override
                 public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                     return false;
