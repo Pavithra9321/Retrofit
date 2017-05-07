@@ -57,6 +57,7 @@ public class ProductListActivity extends AppCompatActivity {
     AllApi apiInitialize;
     PrefManager sessionManger;
     ProductsAdapter adapter;
+    TextView no_data_Text;
 
 
     public final int TYPE_LOAD = 1;
@@ -111,6 +112,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         // sortbyLayout = (LinearLayout) findViewById(R.id.category_products_sortby_layout);
         // refineLayout = (LinearLayout) findViewById(R.id.category_products_refine_layout);
+        no_data_Text= (TextView) findViewById(R.id.no_data_Text);
         catProductRecyclerView = (RecyclerView) findViewById(R.id.common_recyclerview);
         catProductProgressBar = (ProgressBar) findViewById(R.id.common_progressbar);
         catProductNodataImageView = (ImageView) findViewById(R.id.common_nodata_imageview);
@@ -222,6 +224,7 @@ public class ProductListActivity extends AppCompatActivity {
                             ProductModel productModel = response.body();
                             catProductProgressBar.setVisibility(View.GONE);
                             catProductRecyclerView.setVisibility(View.VISIBLE);
+                            no_data_Text.setVisibility(View.GONE);
                             cartData = new ArrayList<CartProduct>();
                             cartData.addAll(sqLiteHelper.getAllCartItems());
                             data.addAll(productModel.getProduct());
@@ -242,6 +245,9 @@ public class ProductListActivity extends AppCompatActivity {
                             catProductRecyclerView.setAdapter(adapter);
                         } else {
                             Log.e("Error", "Failure Response");
+                            catProductProgressBar.setVisibility(View.GONE);
+                            catProductRecyclerView.setVisibility(View.GONE);
+                            no_data_Text.setVisibility(View.VISIBLE);
                         }
                     } catch (Exception e) {
                         Log.e("Exception", "" + e);
@@ -385,5 +391,13 @@ public class ProductListActivity extends AppCompatActivity {
             items.add(new BottomSheetItem(Const.SORTBY_ARRAY[i], i, Const.SORTBY_ARRAY_KEY[i]));
         }
         return items;
+    }
+
+
+
+    @Override
+    protected void onRestart() {
+        loadDataFromApi(0);
+        super.onRestart();
     }
 }

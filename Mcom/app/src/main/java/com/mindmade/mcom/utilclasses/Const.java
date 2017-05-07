@@ -40,7 +40,7 @@ public class Const {
     public static final String PRODUCT_LIKES = "likes";
     public static final String PRODUCT_OFF_PRICE_KEY = "offer_price";
     public static final String PRODUCTS_ACTUAL_PRICE = "compare_at_price";
-    public static final String PRODUCT_LIMIT_VALUE = "5";
+    public static final String PRODUCT_LIMIT_VALUE = "15";
 
     /*Product List Activity*/
     public static final String ORDER_KEY="order";

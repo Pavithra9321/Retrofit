@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -45,7 +46,7 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
     TextView producttitleTV, productPriceTV, productOfferPriceTV, productDescriptionTV, productNodataTV;
     ScrollView productDetailScroolview;
     Toolbar toolbar;
-    TextView toolbarTitleTV;
+    TextView toolbarTitleTV,no_data_Text;
     ImageButton desclikeImage;
     SwipeRefreshLayout product_detailRefreshLayout;
     Button cart_button;
@@ -97,6 +98,7 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
             }
         });
         /*Toolbar End*/
+
 
 
 
@@ -165,6 +167,7 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
 
                         productdetailProgressBar.setVisibility(View.GONE);
                         productDetailScroolview.setVisibility(View.VISIBLE);
+                        productNodataTV.setVisibility(View.GONE);
                         product_detailRefreshLayout.setRefreshing(false);
                         producttitleTV.setText(descriptionDataList.getProductDesc().getName());
                         productOfferPriceTV.setText(descriptionDataList.getProductDesc().getVaraiants().get(0).getPrice());
@@ -204,6 +207,9 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
 
 
                             } else {
+                        productdetailProgressBar.setVisibility(View.GONE);
+                        productDetailScroolview.setVisibility(View.GONE);
+                        productNodataTV.setVisibility(View.VISIBLE);
                                 Log.e("Error", "Failure Response");
                             }
 
@@ -265,29 +271,8 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
                 sqLiteHelper.addToCart(cartProduct);
                 descriptionDataList.getProductDesc().setCartCheck(true);
             }
-            onResume();
-            onPostResume();
-            onRestart();
+            Toast.makeText(getApplicationContext(),"Your Product Updated",Toast.LENGTH_LONG).show();
         }
-
-
+        loadDataFromApi(UserID);
         }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("success","Resume");
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        Log.d("success","postResume");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d("success","Restart");
-    }
 }
