@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
             Log.d("suc", "img" + img);
         }
         catch (Exception e){
-            Log.d("suc","ex"+e);
+            Log.d("suc","exe"+e);
         }
         Glide.with(getApplication()).load(R.drawable.splashnewbg)
                 .thumbnail(0.5f)
