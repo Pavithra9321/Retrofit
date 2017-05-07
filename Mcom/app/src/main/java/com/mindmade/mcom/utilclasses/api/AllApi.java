@@ -32,8 +32,8 @@ public interface AllApi {
 //    @GET(Const.PRODUCT_DESCRIPTION_URL)
 //    Call<ProductDescription> getProductDescriptiondata();
 
-
-    @PUT("products/{user_id}.json")
+    @Headers("Content-Type: application/json")
+    @GET("products/{user_id}.json")
     Call<ProductDescription> getProductDescriptiondata(@Path("user_id") String userId );
 
 

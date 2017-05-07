@@ -66,6 +66,7 @@ boolean like;
 
             Log.w("Success", "Data::: " + data.get(position).getName());
             Log.w("Success", "Data::: " + data.get(position).getId());
+            Log.d("success","DDD"+data.get(position).getImage().getProduct_id());
             ((ProductsAdapter.ProductViewHolder) holder).productNameTV.setText(data.get(position).getName());
          ((ProductsAdapter.ProductViewHolder)holder).productOfferPriceTV.setText(data.get(position).getVaraiants().get(0).getPrice());
 
@@ -168,10 +169,9 @@ boolean like;
         @Override
         public void onClick(View v) {
             if (v == productImageview ) {
-                Log.d("Success","MMM"+data.get(getAdapterPosition() - 1).getId());
+                Log.d("Success","MMM"+data.get(getAdapterPosition()).getId());
                Intent nextIntent = new Intent(mContext, ProductDescriptionActivity.class);
-               //nextIntent.putExtra(Const.NAME_INTENT_KEY, data.get(getAdapterPosition() - 1).getName());
-                nextIntent.putExtra(Const.PRODUCT_ID_KEY, data.get(getAdapterPosition() - 1).getId());
+                nextIntent.putExtra(Const.PRODUCT_ID_KEY, data.get(getAdapterPosition()).getImage().getProduct_id());
                 mContext.startActivity(nextIntent);
             }else if(v== productlikeImage) {
                 productlikeImageRed.setVisibility(View.VISIBLE);

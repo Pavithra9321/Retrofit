@@ -8,4 +8,6 @@
     <color name="searchTextcolor">#666</color>
      <color name="colorblack">#FC080808</color>
     <color name="colorproductText">#666666</color>
+    <color name="coloryellow">#FFFF00</color>
+    <color name="colorgreen">#599301</color>
 </resources>
