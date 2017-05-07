@@ -31,6 +31,8 @@ import com.mindmade.mcom.utilclasses.network.ServiceGenerator;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,11 +53,12 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
     NetworkConnectionManager connectionManager;
     PrefManager sessionManager;
     AllApi apiInitialize;
-    String productName;
+    String productName,Likes;
     String UserID;
       ProductDescription descriptionDataList;
     CartSQLiteHelper sqLiteHelper;
     ProductModel productModel;
+    ArrayList<CartProduct> cartData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +70,12 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
       //  int productID = getIntent().getIntExtra(Const.PRODUCT_ID_KEY,-1);
         UserID= getIntent().getStringExtra(Const.PRODUCT_ID_KEY);
         productName=getIntent().getStringExtra(Const.PRODUCT_NAME);
+        Likes=getIntent().getStringExtra(Const.PRODUCT_LIKES);
         Log.d("success","MMM3"+productName);
         // Log.d("success","MMM2"+product);
         connectionManager = new NetworkConnectionManager(this);
         sessionManager = new PrefManager(this);
+        sqLiteHelper = new CartSQLiteHelper(this);
         apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE, Const.PASSWORD_VALUE);
         toolbar = (Toolbar) findViewById(R.id.product_detail_toolbar);
 
@@ -158,12 +163,6 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
                      //   Log.d("Success","AAA"+actualPrice);
                         Log.d("Success","AAA"+image);
 
-
-
-
-
-
-
                         productdetailProgressBar.setVisibility(View.GONE);
                         productDetailScroolview.setVisibility(View.VISIBLE);
                         product_detailRefreshLayout.setRefreshing(false);
@@ -181,25 +180,26 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
                                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                 .into(productImageView);
 
+                        cartData = new ArrayList<CartProduct>();
+                        cartData.addAll(sqLiteHelper.getAllCartItems());
+                        Log.d("Success","JJJJ"+cartData.size());
+                        Log.d("Success","KKK"+cartData.size());
+                        for (int j = 0; j < cartData.size(); j++) {
+                                if (cartData.get(j).getId().equals(String.valueOf(descriptionDataList.getProductDesc().getId()))) {
+                                    Log.d("Success", "Cart Name:::123 " + cartData.get(j).getName());
+                                    //Log.d("Success", "Name::: " + data.get(i).getName());
+                                    descriptionDataList.getProductDesc().setCartCheck(true);
+                                }
+                           // }
+                       }
 
-                        if (descriptionDataList.getProductDesc().isCartCheck()==true) {
+                        if ( descriptionDataList.getProductDesc().isCartCheck()) {
                             desclikeImage.setImageResource(R.drawable.like_red);
                             Log.d("Success","AAACartRED");
                         } else {
                             desclikeImage.setImageResource(R.drawable.like_gray);
                             Log.d("Success","AAACartGrey");
                         }
-
-//                            descriptionDataList = detailModel.getProduct();
-//                            if (descriptionDataList.size() > 0) {
-//                                producttitleTV.setText(descriptionDataList.get(descriptionDataList.size() - 1).getName());
-//                                //         producttitleTV.setText(StringUtils.abbreviate(descriptionDataList.get(descriptionDataList.size() - 1).getName(),10));
-//                                productPriceTV.setText(getString(R.string.rs_symbol) + " " + descriptionDataList.get(descriptionDataList.size() - 1).getPrice());
-//                                productPriceTV.setPaintFlags(productPriceTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//                                productOfferPriceTV.setText(getString(R.string.rs_symbol) + " " + descriptionDataList.get(descriptionDataList.size() - 1).getOfferPrice());
-//
-
-////
 
 
                             } else {
@@ -225,7 +225,6 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
     @Override
     public void onClick(View v) {
         if(v==desclikeImage){
-
             CartProduct cartProduct = new CartProduct();
             cartProduct.setId(String.valueOf(descriptionDataList.getProductDesc().getId()));
             cartProduct.setName(descriptionDataList.getProductDesc().getName());
@@ -243,7 +242,7 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
                 sqLiteHelper.addToCart(cartProduct);
                 descriptionDataList.getProductDesc().setCartCheck(true);
             }
-
+            //descriptionDataList.notifyAll();
         }else if(v==cart_button){
             CartProduct cartProduct = new CartProduct();
             cartProduct.setId(String.valueOf(descriptionDataList.getProductDesc().getId()));
@@ -254,19 +253,40 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
             cartProduct.setTotal(String.valueOf(cartProduct.getQty() * Float.parseFloat(cartProduct.getPrice())));
             // Log.d("Success", "Clicked Like image:::: " + data.get(getAdapterPosition()).isCartCheck());
 
+
+            Log.d("Success","LLL"+descriptionDataList.getProductDesc().isCartCheck());
             if (descriptionDataList.getProductDesc().isCartCheck()) {
-                Log.d("Success", "Clicked Like image");
+                Log.d("Success", "Clicked Like image delete");
                 sqLiteHelper.deleteCart(cartProduct);
                 descriptionDataList.getProductDesc().setCartCheck(false);
             } else {
+                Log.d("Success", "Clicked Like image add");
                 sqLiteHelper.addToCart(cartProduct);
                 descriptionDataList.getProductDesc().setCartCheck(true);
             }
-
-
+            onResume();
+            onPostResume();
+            onRestart();
         }
 
 
         }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("success","Resume");
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Log.d("success","postResume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("success","Restart");
+    }
 }

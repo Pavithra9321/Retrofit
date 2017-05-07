@@ -70,6 +70,7 @@ public class ProductListActivity extends AppCompatActivity {
     ArrayList<CartProduct> cartData;
     BottomSheetBehavior behavior;
     private BottomSheetDialog mBottomSheetDialog;
+    String Customer_id;
 
 
     @Override
@@ -82,6 +83,8 @@ public class ProductListActivity extends AppCompatActivity {
         sqLiteHelper = new CartSQLiteHelper(this);
         apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE, Const.PASSWORD_VALUE);
         toolbar = (Toolbar) findViewById(R.id.category_product_toolbar);
+
+        Customer_id= getIntent().getStringExtra(Const.ID_INTENT_KEY);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -122,6 +125,19 @@ public class ProductListActivity extends AppCompatActivity {
         View bottomSheet = findViewById(R.id.bottom_sheet);
         behavior = BottomSheetBehavior.from(bottomSheet);
 
+
+        catProductRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                if (data.size() > 0) {
+//                    data.clear();
+//                    adapter.notifyDataChanged();
+//                    adapter.setMoreDataAvailable(true);
+//                }
+                data.clear();
+                loadDataFromApi(0);
+            }
+        });
 
         loadDataFromApi(0);
     }
@@ -179,29 +195,15 @@ public class ProductListActivity extends AppCompatActivity {
 //            }
 //        });
 //
-//       catProductRecyclerView.setAdapter(adapter);
-//
-//        catProductRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                if (data.size() > 0) {
-//                    data.clear();
-//                    adapter.notifyDataChanged();
-//                    adapter.setMoreDataAvailable(true);
-//                }
-//                loadDataFromApi(0);
-//            }
-//        });
-//
-//        loadDataFromApi(0);
+     // catProductRecyclerView.setAdapter(adapter);
 //
 
 
     }
 
-    private void loadDataFromApi(int index) {
+    private void loadDataFromApi(int index ) {
         if (connectionManager.isConnectingToInternet()) {
-            Call<ProductModel> Productscall = apiInitialize.getProductsListData(Const.PRODUCT_LIMIT_VALUE, sort);
+            Call<ProductModel> Productscall = apiInitialize.getProductsListData(Customer_id,Const.PRODUCT_LIMIT_VALUE, sort);
             Log.w("Success", "URL::: " + Productscall.request().url().toString());
 
             Productscall.enqueue(new Callback<ProductModel>() {
@@ -223,6 +225,7 @@ public class ProductListActivity extends AppCompatActivity {
                             cartData = new ArrayList<CartProduct>();
                             cartData.addAll(sqLiteHelper.getAllCartItems());
                             data.addAll(productModel.getProduct());
+                            Log.d("Success","JJJ"+cartData.size());
                             for (int i = 0; i < productModel.getProduct().size(); i++) {
                                 for (int j = 0; j < cartData.size(); j++) {
                                     if (cartData.get(j).getId().equals(String.valueOf(data.get(i).getId()))) {

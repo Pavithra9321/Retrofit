@@ -62,13 +62,13 @@ public class ProductModel {
         @SerializedName(Const.IMAGE_OBJECT_KEY)
         public Image image;
 
-        boolean cartCheck;
+       boolean cartCheck;
 
         public boolean isCartCheck() {
             return cartCheck;
         }
 
-        public void setCartCheck(boolean cartCheck) {
+        public  void setCartCheck(boolean cartCheck) {
             this.cartCheck = cartCheck;
         }
 

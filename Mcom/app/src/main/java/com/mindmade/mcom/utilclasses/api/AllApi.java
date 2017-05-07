@@ -38,7 +38,7 @@ public interface AllApi {
 
 
     @GET(Const.PRODUCT_URL)
-    Call<ProductModel> getProductsListData(@Query(Const.LIMIT_KEY) String limit,@Query(Const.ORDER_KEY) String order);
+    Call<ProductModel> getProductsListData(@Query(Const.ID_INTENT_KEY) String customer_id,@Query(Const.LIMIT_KEY) String limit,@Query(Const.ORDER_KEY) String order);
 
     @GET(Const.PRODUCT_URL)
     Call<SearchModel> getSearchProducts(@Query(Const.TITLE_KEY) String title, @Query(Const.LIMIT_KEY) String limit, @Query(Const.FIELDS_KEY) String filelds);
