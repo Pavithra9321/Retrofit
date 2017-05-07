@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mindmade.mcom.R;
-import com.mindmade.mcom.adapter.TabPagerAdapter;
+import com.mindmade.mcom.adapterclasses.TabPagerAdapter;
 import com.mindmade.mcom.fragments.About_US_Fragment;
 import com.mindmade.mcom.fragments.Cart_Fragment;
 import com.mindmade.mcom.fragments.CategoriesFragment;

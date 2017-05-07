@@ -79,7 +79,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         connectionManager = new NetworkConnectionManager(this);
         sessionManger = new PrefManager(this);
-        sqLiteHelper=new CartSQLiteHelper(this);
+        sqLiteHelper = new CartSQLiteHelper(this);
         apiInitialize = ServiceGenerator.createService(AllApi.class, Const.API_VALUE, Const.PASSWORD_VALUE);
         toolbar = (Toolbar) findViewById(R.id.category_product_toolbar);
 
@@ -201,7 +201,7 @@ public class ProductListActivity extends AppCompatActivity {
 
     private void loadDataFromApi(int index) {
         if (connectionManager.isConnectingToInternet()) {
-            Call<ProductModel> Productscall = apiInitialize.getProductsListData(Const.PRODUCT_LIMIT_VALUE,sort);
+            Call<ProductModel> Productscall = apiInitialize.getProductsListData(Const.PRODUCT_LIMIT_VALUE, sort);
             Log.w("Success", "URL::: " + Productscall.request().url().toString());
 
             Productscall.enqueue(new Callback<ProductModel>() {
@@ -220,16 +220,16 @@ public class ProductListActivity extends AppCompatActivity {
                             ProductModel productModel = response.body();
                             catProductProgressBar.setVisibility(View.GONE);
                             catProductRecyclerView.setVisibility(View.VISIBLE);
-                            cartData=new ArrayList<CartProduct>();
+                            cartData = new ArrayList<CartProduct>();
                             cartData.addAll(sqLiteHelper.getAllCartItems());
                             data.addAll(productModel.getProduct());
                             for (int i = 0; i < productModel.getProduct().size(); i++) {
                                 for (int j = 0; j < cartData.size(); j++) {
-                                   if ( cartData.get(j).getId().equals(String.valueOf(data.get(i).getId()))){
-                                       Log.d("Success","Cart Name::: "+cartData.get(j).getName());
-                                       Log.d("Success","Name::: "+data.get(i).getName());
-                                       data.get(i).setCartCheck(true);
-                                   }/*else {
+                                    if (cartData.get(j).getId().equals(String.valueOf(data.get(i).getId()))) {
+                                        Log.d("Success", "Cart Name::: " + cartData.get(j).getName());
+                                        Log.d("Success", "Name::: " + data.get(i).getName());
+                                        data.get(i).setCartCheck(true);
+                                    }/*else {
                                        data.get(i).setCartCheck(false);
                                    }*/
                                 }
@@ -348,13 +348,15 @@ public class ProductListActivity extends AppCompatActivity {
             public void onItemClick(BottomSheetItem item, int pos) {
                 if (mBottomSheetDialog != null) {
                     // Toast.makeText(CategoryProductsActivity.this, "Clicked ::: " + pos, Toast.LENGTH_SHORT).show();
-                    sort = Const.TITLE_KEY+String.valueOf(item.getTitle());
+                    sort = Const.TITLE_KEY + " " + String.valueOf(item.getTitle());
+                    //  sort=connectionManager.urlencoder(sort);
+                    Log.w("Success", "Sort Key::: " + sort);
                     mBottomSheetDialog.dismiss();
-                    if (data.size() > 0) {
+                    /*if (data.size() > 0) {
                         data.clear();
                         adapter.notifyDataChanged();
                         adapter.setMoreDataAvailable(true);
-                    }
+                    }*/
                     catProductProgressBar.setVisibility(View.VISIBLE);
                     catProductRecyclerView.setVisibility(View.GONE);
                     loadDataFromApi(0);
