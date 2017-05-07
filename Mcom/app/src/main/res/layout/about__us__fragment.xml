@@ -48,7 +48,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:src="@mipmap/mcom"
+                android:src="@drawable/aboutlogo"
                 android:layout_margin="7dp"
                 app:civ_border_color="@color/opacity"
                 app:civ_border_width="2dp"
@@ -127,8 +127,7 @@
             android:layout_height="match_parent"
             android:id="@+id/desc"
             android:text="@string/description"
-            android:gravity="center"
-            android:layout_weight="1"
+
             />
     </LinearLayout>
 </LinearLayout>

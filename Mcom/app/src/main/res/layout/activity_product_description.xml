@@ -73,10 +73,11 @@
                         android:id="@+id/product_detail_imageview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:adjustViewBounds="false"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/error_page"
                         android:scaleType="fitCenter"
+                        android:padding="5dp"
+                        android:adjustViewBounds="true"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentStart="true" />
 
