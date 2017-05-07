@@ -47,7 +47,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
     PrefManager sessionManager;
     AllApi apiInitialize;
     String productName;
-    int productID;
+    String UserID="10209534339";
   JSONObject descriptionDataList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         productNodataTV = (TextView) findViewById(R.id.product_detail_nodata_TV);
         product_detailRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.product_detail_refresh_layout);
         product_detailRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorPrimary);
-        loadDataFromApi();
+        loadDataFromApi(UserID);
 
         product_detailRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -105,9 +105,9 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         });
     }
 
-  private void loadDataFromApi() {
+  private void loadDataFromApi(String userID) {
     if (connectionManager.isConnectingToInternet()) {
-        Call<ProductDescription> Productscall = apiInitialize.getProductDescriptiondata();
+        Call<ProductDescription> Productscall = apiInitialize.getProductDescriptiondata(UserID);
         Log.w("Success", "URL::: " + Productscall.request().url().toString());
 
         Productscall.enqueue(new Callback<ProductDescription>() {
