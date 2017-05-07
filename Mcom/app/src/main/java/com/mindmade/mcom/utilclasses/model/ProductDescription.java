@@ -13,23 +13,25 @@ import java.util.List;
  * Created by Mindmade technologies on 07-05-2017.
  */
 public class ProductDescription {
-    @SerializedName(Const.PRODUCT_DESC_ARRAY_KEY)
-
-    private Object products;
+    @SerializedName
+   (Const.PRODUCT_DESC_ARRAY_KEY)
+    @Expose
+    private productDesc productDesc;
 
     /**
      * @return The contacts
      */
-    public Object getProduct() {
-        return products;
+    public productDesc getProductDesc() {
+        return productDesc;
     }
 
 
-    public void setProduct(Object product) {
-        this.products = product;
+    public void setProductDesc(productDesc productDesc) {
+        this.productDesc = productDesc;
     }
 
-//    //
+
+    //    //
 //    @SerializedName(Const.PRODUCT_DESC_ARRAY_KEY)
 //    List<Products> productList;
 //
@@ -41,12 +43,14 @@ public class ProductDescription {
 //        this.productList = productList;
 //    }
 ////
-    public class Products {
+    public class productDesc{
         @SerializedName(Const.TITLE_KEY)
         String name;
+        @Expose
         @SerializedName(Const.ID_KEY)
         Long id;
 
+//
         @SerializedName(Const.IMAGE_OBJECT_KEY)
         public ProductModel.Products.Image image;
 
@@ -58,7 +62,7 @@ public class ProductDescription {
             this.name = name;
         }
 
-        public float getId() {
+        public Long getId() {
             return id;
         }
 
@@ -99,6 +103,9 @@ public class ProductDescription {
             @SerializedName(Const.PRODUCT_PRICE)
             String price;
 
+            @SerializedName(Const.PRODUCT_COMPARE_PRICE)
+            String compareprice;
+
 
             public String getPrice() {
                 return price;
@@ -107,8 +114,17 @@ public class ProductDescription {
             public void setPrice(String price) {
                 this.price = price;
             }
+
+
+
+        public String getCompareprice() {
+            return compareprice;
         }
 
+        public void setCompareprice(String compareprice) {
+            this.compareprice = compareprice;
+        }
+    }
 
 
         public class Image {

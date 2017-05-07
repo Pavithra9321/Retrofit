@@ -71,6 +71,7 @@ public class ProductsAdapter extends RecyclerView.Adapter {
 
             Log.w("Success", "Data::: " + data.get(position).getName());
             Log.w("Success", "Data::: " + data.get(position).getId());
+            Log.d("success","DDD"+data.get(position).getImage().getProduct_id());
             ((ProductsAdapter.ProductViewHolder) holder).productNameTV.setText(data.get(position).getName());
             ((ProductsAdapter.ProductViewHolder) holder).productOfferPriceTV.setText(data.get(position).getVaraiants().get(0).getPrice());
 
@@ -86,7 +87,7 @@ public class ProductsAdapter extends RecyclerView.Adapter {
                     ((ProductsAdapter.ProductViewHolder) holder).productAdapterProgressBar.setVisibility(View.GONE);
                     return false;
                 }
-            }).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(((ProductsAdapter.ProductViewHolder) holder).productImageview);
+            }).diskCacheStrategy(DiskCacheStrategy.SOURCE).placeholder(R.drawable.placeholder).into(((ProductsAdapter.ProductViewHolder) holder).productImageview);
 
             if (data.get(position).isCartCheck()) {
                 ((ProductsAdapter.ProductViewHolder) holder).productlikeImage.setImageResource(R.drawable.like_red);
@@ -201,6 +202,7 @@ public class ProductsAdapter extends RecyclerView.Adapter {
             }
         }
     }
+
 
     static class LoadHolder extends RecyclerView.ViewHolder {
         public LoadHolder(View itemView) {
