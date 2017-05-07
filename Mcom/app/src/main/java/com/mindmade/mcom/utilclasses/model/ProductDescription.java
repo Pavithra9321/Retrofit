@@ -52,7 +52,16 @@ public class ProductDescription {
         @SerializedName(Const.ID_KEY)
         Long id;
 
-//
+        boolean cartCheck;
+
+        public boolean isCartCheck() {
+            return cartCheck;
+        }
+        public void setCartCheck(boolean cartCheck) {
+            this.cartCheck = cartCheck;
+        }
+
+
         @SerializedName(Const.IMAGE_OBJECT_KEY)
         public ProductModel.Products.Image image;
 
