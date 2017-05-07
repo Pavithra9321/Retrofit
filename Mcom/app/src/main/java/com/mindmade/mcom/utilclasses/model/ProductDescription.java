@@ -46,6 +46,8 @@ public class ProductDescription {
     public class productDesc{
         @SerializedName(Const.TITLE_KEY)
         String name;
+        @SerializedName(Const.DESC_KEY)
+        String description;
         @Expose
         @SerializedName(Const.ID_KEY)
         Long id;
@@ -61,6 +63,15 @@ public class ProductDescription {
         public void setName(String name) {
             this.name = name;
         }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
 
         public Long getId() {
             return id;
@@ -104,9 +115,15 @@ public class ProductDescription {
             String price;
 
             @SerializedName(Const.PRODUCT_COMPARE_PRICE)
-            String compareprice;
+            String compare;
 
+            public String getCompare() {
+                return compare;
+            }
 
+            public void setCompare(String compare) {
+                this.compare = compare;
+            }
             public String getPrice() {
                 return price;
             }
@@ -117,13 +134,7 @@ public class ProductDescription {
 
 
 
-        public String getCompareprice() {
-            return compareprice;
-        }
 
-        public void setCompareprice(String compareprice) {
-            this.compareprice = compareprice;
-        }
     }
 
 

@@ -15,6 +15,9 @@ public class Const {
     public static final String CATEGORY_ARRAY_KEY = "custom_collections";
     public static final String ID_KEY = "id";
     public static final String TITLE_KEY = "title";
+
+
+    public static final String DESC_KEY = "body_html";
     public static final String IMAGE_OBJECT_KEY = "image";
     public static final String SRC_KEY = "src";
     public static final String ID_INTENT_KEY = "collection_id";
@@ -30,7 +33,7 @@ public class Const {
     public static final String PRODUCT_VARAINTS = "variants";
     public static final String PRODUCT_PRICE = "price";
     public static final String PRODUCT_COMPARE_PRICE = "compare_at_price";
-    public static final String PRODUCT_PRICE_KEY = "price";
+    public static final String PRODUCT_NAME = "name";
     public static final String PRODUCT_OFF_PRICE_KEY = "offer_price";
     public static final String TYPE_KEY = "type";
     public static final String PRODUCT_LIMIT_VALUE = "5";

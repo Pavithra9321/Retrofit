@@ -1,9 +1,9 @@
 package com.mindmade.mcom.activity;
 
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -16,19 +16,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.mindmade.mcom.R;
-import com.mindmade.mcom.utilclasses.AppController;
 import com.mindmade.mcom.utilclasses.Const;
 import com.mindmade.mcom.utilclasses.NetworkConnectionManager;
 import com.mindmade.mcom.utilclasses.PrefManager;
 import com.mindmade.mcom.utilclasses.api.AllApi;
 import com.mindmade.mcom.utilclasses.model.ProductDescription;
-import com.mindmade.mcom.utilclasses.model.ProductModel;
 import com.mindmade.mcom.utilclasses.network.ServiceGenerator;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.lang.StringUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,7 +44,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
     PrefManager sessionManager;
     AllApi apiInitialize;
     String productName;
-    String UserID="10209534339";
+    String UserID;
       ProductDescription descriptionDataList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +54,10 @@ public class ProductDescriptionActivity extends AppCompatActivity {
 
 
 
-        int productID = getIntent().getIntExtra(Const.PRODUCT_ID_KEY,-1);
-        String package_id = getIntent().getStringExtra("package_id");
-        Log.d("success","MMM3"+productID);
+      //  int productID = getIntent().getIntExtra(Const.PRODUCT_ID_KEY,-1);
+        UserID= getIntent().getStringExtra(Const.PRODUCT_ID_KEY);
+        productName=getIntent().getStringExtra(Const.PRODUCT_NAME);
+        Log.d("success","MMM3"+productName);
         // Log.d("success","MMM2"+product);
         connectionManager = new NetworkConnectionManager(this);
         sessionManager = new PrefManager(this);
@@ -75,7 +71,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbarTitleTV = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbarTitleTV.setAllCaps(true);
-        toolbarTitleTV.setText(productName);
+        toolbarTitleTV.setText(StringUtils.abbreviate(productName, 10));
         toolbar.setNavigationIcon(R.drawable.ic_back_arrow);
 
 
@@ -140,7 +136,6 @@ public class ProductDescriptionActivity extends AppCompatActivity {
                         String  title =descriptionDataList.getProductDesc().getName();
                         String offerPrice=descriptionDataList.getProductDesc().getVaraiants().get(0).getPrice();
                         String image=descriptionDataList.getProductDesc().getImage().getSrc();
-                        //String actualPrice=descriptionDataList.getProductDesc().getVaraiants().get(0).
 
                         Log.d("Success","AAA"+id);
                         Log.d("Success","AAA"+title);
@@ -160,7 +155,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
                         productOfferPriceTV.setText(descriptionDataList.getProductDesc().getVaraiants().get(0).getPrice());
                         productPriceTV.setText(descriptionDataList.getProductDesc().getVaraiants().get(0).getPrice());
                         productPriceTV.setPaintFlags(productPriceTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                        productDescriptionTV.setText(descriptionDataList.getProductDesc().getName());
+                        productDescriptionTV.setText(descriptionDataList.getProductDesc().getDescription());
                         Glide
                                 .with(ProductDescriptionActivity.this)
                                 .load(descriptionDataList.getProductDesc().getImage().getSrc())
