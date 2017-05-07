@@ -45,4 +45,11 @@ public class Const {
   public static final String FIELDS_KEY="fields";
   public static final String FIELDS_VALUE="id,title";
 
+  /*About us**/
+  public static final String FACEBOOK="https://www.facebook.com/mindmadetech/";
+  public static final String LINKEDIN="https://www.linkedin.com/company-beta/3146241/?pathWildcard=3146241";
+  public static final String TWITTER="https://twitter.com/mindmadetech";
+  public static final String  GOOGLE="https://plus.google.com/+MindMade";
+
+
 }
