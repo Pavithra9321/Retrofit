@@ -74,4 +74,11 @@ public class Const {
 
     public static final String[] SORTBY_ARRAY = {"Populartity", "New", "Price : Low - High", "Price : High - Low"};
 
+  /*About us**/
+  public static final String FACEBOOK="https://www.facebook.com/mindmadetech/";
+  public static final String LINKEDIN="https://www.linkedin.com/company-beta/3146241/?pathWildcard=3146241";
+  public static final String TWITTER="https://twitter.com/mindmadetech";
+  public static final String  GOOGLE="https://plus.google.com/+MindMade";
+
+
 }
