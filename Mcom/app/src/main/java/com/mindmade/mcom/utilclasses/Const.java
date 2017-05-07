@@ -32,10 +32,10 @@ public class Const {
     public static final String UPDATED_AT = "updated_at";
     public static final String PRODUCT_VARAINTS = "variants";
     public static final String PRODUCT_PRICE = "price";
-    public static final String PRODUCT_COMPARE_PRICE = "compare_at_price";
+    public static final String PRODUCT_COMPARE = "sku";
     public static final String PRODUCT_NAME = "name";
     public static final String PRODUCT_OFF_PRICE_KEY = "offer_price";
-    public static final String TYPE_KEY = "type";
+    public static final String PRODUCTS_ACTUAL_PRICE = "compare_at_price";
     public static final String PRODUCT_LIMIT_VALUE = "5";
 
     /*Product List Activity*/

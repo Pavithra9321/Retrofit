@@ -114,15 +114,15 @@ public class ProductDescription {
             @SerializedName(Const.PRODUCT_PRICE)
             String price;
 
-            @SerializedName(Const.PRODUCT_COMPARE_PRICE)
-            String compare;
+            @SerializedName(Const.PRODUCTS_ACTUAL_PRICE)
+            String actualprice;
 
-            public String getCompare() {
-                return compare;
+            public String getActualprice() {
+                return actualprice;
             }
 
-            public void setCompare(String compare) {
-                this.compare = compare;
+            public void setActualprice(String actualprice) {
+                this.actualprice = actualprice;
             }
             public String getPrice() {
                 return price;
@@ -131,9 +131,6 @@ public class ProductDescription {
             public void setPrice(String price) {
                 this.price = price;
             }
-
-
-
 
     }
 

@@ -121,7 +121,16 @@ public class ProductModel {
         @SerializedName(Const.PRODUCT_PRICE)
         String price;
 
+        @SerializedName(Const.PRODUCTS_ACTUAL_PRICE)
+        String actualprice;
 
+        public String getActualprice() {
+            return actualprice;
+        }
+
+        public void setActualprice(String actualprice) {
+            this.actualprice = actualprice;
+        }
         public String getPrice() {
             return price;
         }
