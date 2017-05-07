@@ -153,7 +153,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
                         product_detailRefreshLayout.setRefreshing(false);
                         producttitleTV.setText(descriptionDataList.getProductDesc().getName());
                         productOfferPriceTV.setText(descriptionDataList.getProductDesc().getVaraiants().get(0).getPrice());
-                        productPriceTV.setText(descriptionDataList.getProductDesc().getVaraiants().get(0).getPrice());
+                        productPriceTV.setText(descriptionDataList.getProductDesc().getVaraiants().get(0).getActualprice());
                         productPriceTV.setPaintFlags(productPriceTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                         productDescriptionTV.setText(descriptionDataList.getProductDesc().getDescription());
                         Glide
