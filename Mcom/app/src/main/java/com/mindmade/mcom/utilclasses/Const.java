@@ -24,20 +24,20 @@ public class Const {
     public static final String PRODUCT_ARRAY_KEY = "products";
     public static final String PRODUCT_ID_KEY = "id";
     public static final String PRODUCT_IMAGE_ID = "product_id";
-  public static final String PRODUCT_POSITON_ID = "position";
-  public static final String CREATED_AT = "created_at";
-  public static final String UPDATED_AT = "updated_at";
+    public static final String PRODUCT_POSITON_ID = "position";
+    public static final String CREATED_AT = "created_at";
+    public static final String UPDATED_AT = "updated_at";
     public static final String PRODUCT_VARAINTS = "variants";
     public static final String PRODUCT_PRICE = "price";
     public static final String PRODUCT_COMPARE_PRICE = "compare_at_price";
     public static final String PRODUCT_PRICE_KEY = "price";
     public static final String PRODUCT_OFF_PRICE_KEY = "offer_price";
     public static final String TYPE_KEY = "type";
-  public static final String PRODUCT_LIMIT_VALUE="5";
+    public static final String PRODUCT_LIMIT_VALUE = "5";
 
-//   Product Description
-public static final String PRODUCT_DESC_ARRAY_KEY = "product";
-public static final String PRODUCT_DESCRIPTION_URL = "products/10209534339.json";
+    //   Product Description
+    public static final String PRODUCT_DESC_ARRAY_KEY = "product";
+    public static final String PRODUCT_DESCRIPTION_URL = "products/10209534339.json";
     public static final String PRODUCT_DESCRIPTION_ID = "products/10209534339.json";
     public static final String PRODUCT_LIKE = "like";
 
@@ -67,11 +67,18 @@ public static final String PRODUCT_DESCRIPTION_URL = "products/10209534339.json"
     public static final String IMAGE_COLUMN = "image";
     public static final String QTY_COLUMN = "qty";
     public static final String PRICE_COLUMN = "price";
-
-    public static final String CART_TOTAL_KEY="Total: ";
-    public static final String CART_ITEMS_KEY="Items: ";
+    public static final String TOTAL_PRICE_COLUMN = "total";
+    public static final String CART_TOTAL_KEY = "Total: ";
+    public static final String CART_ITEMS_KEY = "Items: ";
 
 
     public static final String[] SORTBY_ARRAY = {"Populartity", "New", "Price : Low - High", "Price : High - Low"};
+
+  /*About us**/
+  public static final String FACEBOOK="https://www.facebook.com/mindmadetech/";
+  public static final String LINKEDIN="https://www.linkedin.com/company-beta/3146241/?pathWildcard=3146241";
+  public static final String TWITTER="https://twitter.com/mindmadetech";
+  public static final String  GOOGLE="https://plus.google.com/+MindMade";
+
 
 }

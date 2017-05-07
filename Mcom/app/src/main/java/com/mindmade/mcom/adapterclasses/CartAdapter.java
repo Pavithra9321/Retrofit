@@ -2,6 +2,7 @@ package com.mindmade.mcom.adapterclasses;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.mindmade.mcom.R;
+import com.mindmade.mcom.fragments.Cart_Fragment;
 import com.mindmade.mcom.utilclasses.CartSQLiteHelper;
 import com.mindmade.mcom.utilclasses.model.CartProduct;
 
@@ -29,11 +31,13 @@ public class CartAdapter extends RecyclerView.Adapter {
     Context mContext;
     List<CartProduct> data;
     CartSQLiteHelper cartSQLiteHelper;
+    Cart_Fragment mCart_fragment;
 
-    public CartAdapter(Context context, List<CartProduct> passData) {
+    public CartAdapter(Context context, List<CartProduct> passData, Cart_Fragment cart_fragment) {
         mContext = context;
         data = passData;
         cartSQLiteHelper = new CartSQLiteHelper(mContext);
+        mCart_fragment = cart_fragment;
     }
 
     @Override
@@ -46,8 +50,9 @@ public class CartAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof CartViewHolder) {
             ((CartViewHolder) holder).cartProductName.setText(data.get(position).getName());
-            ((CartViewHolder) holder).cartProductPrice.setText(data.get(position).getPrice());
-            ((CartViewHolder) holder).cartProductQuantity.setText(data.get(position).getQty());
+            ((CartViewHolder) holder).cartProductPrice.setText(data.get(position).getTotal());
+            Log.w("Success", "QTY::: " + data.get(position).getQty());
+            ((CartViewHolder) holder).cartProductQuantity.setText(String.valueOf(data.get(position).getQty()));
             Glide.with(mContext).load(data.get(position).getImg_url()).fitCenter().listener(new RequestListener<String, GlideDrawable>() {
                 @Override
                 public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -67,10 +72,10 @@ public class CartAdapter extends RecyclerView.Adapter {
         return data.size();
     }
 
-    private class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView cartProductImageView;
-        TextView cartProductName, cartProductPrice, cartProductQuantity;
+        public TextView cartProductName, cartProductPrice, cartProductQuantity;
         ImageButton cartAddBtn, cartLessBtn, cartDeleteBtn;
 
         public CartViewHolder(View itemView) {
@@ -92,17 +97,24 @@ public class CartAdapter extends RecyclerView.Adapter {
         @Override
         public void onClick(View v) {
             if (v == cartDeleteBtn) {
-                //  Toast.makeText(mContext, "Clicked Delete " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
                 cartSQLiteHelper.deleteCart(data.get(getAdapterPosition()));
                 data.remove(getAdapterPosition());
+              //    mCart_fragment.updatePriceAndCount(String.valueOf(data.size()), cartSQLiteHelper.getTotalPrice());
+                Log.d("Success", "Size:::" + String.valueOf(data.size()));
+                Log.d("Success", "Size:::" + cartSQLiteHelper.getTotalPrice());
+                notifyDataSetChanged();
             } else if (v == cartAddBtn) {
-                // Toast.makeText(mContext, "Clicked Add " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
                 data.get(getAdapterPosition()).setQty(Integer.parseInt(cartProductQuantity.getText().toString().trim()) + 1);
+                data.get(getAdapterPosition()).setTotal(String.valueOf(data.get(getAdapterPosition()).getQty() * Float.parseFloat((data.get(getAdapterPosition()).getPrice()))));
                 cartSQLiteHelper.updateCart(data.get(getAdapterPosition()));
+                cartProductQuantity.setText(String.valueOf(data.get(getAdapterPosition()).getQty()));
+                cartProductPrice.setText(data.get(getAdapterPosition()).getTotal());
             } else if (v == cartLessBtn) {
-                // Toast.makeText(mContext, "Clicked Less " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
                 data.get(getAdapterPosition()).setQty(Integer.parseInt(cartProductQuantity.getText().toString().trim()) - 1);
+                data.get(getAdapterPosition()).setTotal(String.valueOf(data.get(getAdapterPosition()).getQty() * Float.parseFloat((data.get(getAdapterPosition()).getPrice()))));
                 cartSQLiteHelper.updateCart(data.get(getAdapterPosition()));
+                cartProductQuantity.setText(String.valueOf(data.get(getAdapterPosition()).getQty()));
+                cartProductPrice.setText(data.get(getAdapterPosition()).getTotal());
             }
         }
     }
