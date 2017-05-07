@@ -175,10 +175,10 @@ public class ProductsAdapter extends RecyclerView.Adapter {
         public void onClick(View v) {
             if (v == productImageview) {
                 //  Log.d("Success", "MMM" + data.get(getAdapterPosition() - 1).getId());
-                /*Intent nextIntent = new Intent(mContext, ProductDescriptionActivity.class);
+                Intent nextIntent = new Intent(mContext, ProductDescriptionActivity.class);
                 //nextIntent.putExtra(Const.NAME_INTENT_KEY, data.get(getAdapterPosition() - 1).getName());
                 nextIntent.putExtra(Const.PRODUCT_ID_KEY, data.get(getAdapterPosition()).getId());
-                mContext.startActivity(nextIntent);*/
+                mContext.startActivity(nextIntent);
             } else if (v == productlikeImage) {
 
                 CartProduct cartProduct = new CartProduct();
