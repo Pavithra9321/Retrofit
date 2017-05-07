@@ -57,14 +57,14 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
 
         public void setData(BottomSheetItem item) {
             this.item = item;
-            textView.setText(item.getTitle());
+            textView.setText(item.getmKey());
         }
 
         @Override
         public void onClick(View v) {
-            if (v==textView) {
+            if (v == textView) {
                 if (mListener != null) {
-                    mListener.onItemClick(item,getAdapterPosition());
+                    mListener.onItemClick(item, getAdapterPosition());
                 }
             }
         }
