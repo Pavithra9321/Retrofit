@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="02dp"
-    android:layout_marginRight="0dp"
+    android:layout_marginRight="02dp"
     android:layout_marginTop="02dp"
     android:orientation="vertical"
+    android:layout_marginBottom="02dp"
     app:cardCornerRadius="2dp"
     app:cardElevation="02dp">
 
