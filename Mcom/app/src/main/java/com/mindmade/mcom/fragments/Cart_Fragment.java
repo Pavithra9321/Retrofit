@@ -204,7 +204,7 @@ public class Cart_Fragment extends Fragment {
                     data.get(getAdapterPosition()).setTotal(String.valueOf(data.get(getAdapterPosition()).getQty() * Float.parseFloat((data.get(getAdapterPosition()).getPrice()))));
                     cartSQLiteHelper.updateCart(data.get(getAdapterPosition()));
                     cartProductQuantity.setText(String.valueOf(data.get(getAdapterPosition()).getQty()));
-                    cartProductPrice.setText(data.get(getAdapterPosition()).getTotal());
+                    cartProductPrice.setText(String.valueOf(getString(R.string.rs_symbol) + data.get(getAdapterPosition()).getTotal()));
                     carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + getResources().getString(R.string.rs_symbol) + cartSQLiteHelper.getTotalPrice()));
                 } else if (v == cartLessBtn) {
                     if (data.get(getAdapterPosition()).getQty() > 1) {
@@ -212,7 +212,7 @@ public class Cart_Fragment extends Fragment {
                         data.get(getAdapterPosition()).setTotal(String.valueOf(data.get(getAdapterPosition()).getQty() * Float.parseFloat((data.get(getAdapterPosition()).getPrice()))));
                         cartSQLiteHelper.updateCart(data.get(getAdapterPosition()));
                         cartProductQuantity.setText(String.valueOf(data.get(getAdapterPosition()).getQty()));
-                        cartProductPrice.setText(data.get(getAdapterPosition()).getTotal());
+                        cartProductPrice.setText(String.valueOf(getString(R.string.rs_symbol) + data.get(getAdapterPosition()).getTotal()));
                         carttotalPrice.setText(String.valueOf(Const.CART_TOTAL_KEY + getResources().getString(R.string.rs_symbol) + cartSQLiteHelper.getTotalPrice()));
                     }
                 }

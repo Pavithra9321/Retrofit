@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         catch (Exception e){
             Log.d("suc","exe"+e);
         }
-        Glide.with(getApplication()).load(R.drawable.splashnewbg)
+        Glide.with(this).load(R.drawable.splashnewbg)
                 .thumbnail(0.5f)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)

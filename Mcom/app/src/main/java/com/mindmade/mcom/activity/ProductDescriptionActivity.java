@@ -1,7 +1,12 @@
 package com.mindmade.mcom.activity;
 
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,6 +44,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.mindmade.mcom.R.id.product_detail_name_TV;
+import static com.mindmade.mcom.R.id.progressBar;
 
 public class ProductDescriptionActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView productImageView;
@@ -118,7 +124,15 @@ public class ProductDescriptionActivity extends AppCompatActivity implements Vie
         loadDataFromApi(UserID);
 
 
+        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
+            Drawable drawableProgress = DrawableCompat.wrap(ra.getIndeterminateDrawable());
+            DrawableCompat.setTint(drawableProgress, ContextCompat.getColor(getContext(), android.R.color.holo_green_light));
+            progressBar.setIndeterminateDrawable(DrawableCompat.unwrap(drawableProgress));
+
+        } else {
+            progressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(getContext(), android.R.color.holo_green_light), PorterDuff.Mode.SRC_IN);
+        }*/
         desclikeImage.setOnClickListener(this);
         cart_button.setOnClickListener(this);
         product_detailRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
