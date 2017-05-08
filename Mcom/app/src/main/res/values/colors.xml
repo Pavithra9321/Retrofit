@@ -14,4 +14,5 @@
 
     <color name="qtyTextcolor">#999999</color>
     <color name="borderColor">#BD666666</color>
+    <color name="ratingEnable">#E5D400</color>
 </resources>

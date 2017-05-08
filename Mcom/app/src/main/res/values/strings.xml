@@ -25,6 +25,7 @@ We provide complete Software Development Life Cycle, ranging from new product de
     <string name="quantityStr">Quantity</string>
 
     <string name="addtocart">ADD TO CART</string>
+    <string name="removecart">REMOVE FROM CART</string>
 
 
 

@@ -123,14 +123,15 @@
                                 android:maxLines="1"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                 android:textColor="@color/colorproductText" />
-                            <android.support.v7.widget.AppCompatRatingBar
+                            <RatingBar
                                 android:numStars="5"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
                                 android:gravity="center_horizontal|center"
                                 android:layout_gravity="center"
                                 android:theme="@style/CustomRatingBar"
                                 android:padding="0dp"
+                                android:stepSize="0.1"
                                 />
 
 
