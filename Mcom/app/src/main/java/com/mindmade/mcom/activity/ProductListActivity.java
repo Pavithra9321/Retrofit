@@ -397,7 +397,6 @@ public class ProductListActivity extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
-        loadDataFromApi(0);
         super.onRestart();
     }
 }
